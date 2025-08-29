@@ -1,6 +1,6 @@
 using API.Data;
-using API.Profiles;                  // ProductProfile
-using API.Repositories;
+using Api.Profiles;                  // ProductProfile
+using Api.Repositories;
 using Application.Interfaces;
 using Application.Services;
 using Microsoft.EntityFrameworkCore;
