@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Application.Interfaces;
-using Application.DTOs.Product;   // ✅ troque para Application.DTOs
+using Application.DTOs.Product;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

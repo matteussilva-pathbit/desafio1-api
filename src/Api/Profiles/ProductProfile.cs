@@ -2,7 +2,7 @@ using Application.DTOs.Product;   // ✅ troque para Application.DTOs
 using AutoMapper;
 using Domain.Entities;
 
-namespace API.Profiles;
+namespace Api.Profiles;
 
 public class ProductProfile : Profile
 {

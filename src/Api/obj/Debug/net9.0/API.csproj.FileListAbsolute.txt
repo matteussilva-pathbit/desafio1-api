@@ -27,10 +27,16 @@ C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.EntityFrame
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Json.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.FileSystemGlobbing.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
@@ -156,6 +162,7 @@ C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.AssemblyInfo.cs
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.csproj.CoreCompileInputs.cache
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.sourcelink.json
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\rjimswa.dswa.cache.json
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
@@ -170,4 +177,3 @@ C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\refint\API.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.pdb
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.genruntimeconfig.cache
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\ref\API.dll
-C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.sourcelink.json

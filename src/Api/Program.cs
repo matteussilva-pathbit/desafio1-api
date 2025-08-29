@@ -1,18 +1,23 @@
+using Api.Profiles;                 // seu(s) Profile(s)
 using Application.Interfaces;
 using Application.Services;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Api.Profiles; // se seus Profiles estão em Api (ajuste o namespace após renomear)
 
 var builder = WebApplication.CreateBuilder(args);
 
+// DbContext (troque para UseSqlite se for o caso)
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Se usar SQLite: opt.UseSqlite(...)
 
-builder.Services.AddAutoMapper(typeof(ProductProfile)); // ou o seu profile principal
+// ✅ AutoMapper sem ambiguidade de overload
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<ProductProfile>();   // adicione outros profiles se tiver
+});
 
+// DI
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
@@ -23,6 +28,5 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
-// app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
