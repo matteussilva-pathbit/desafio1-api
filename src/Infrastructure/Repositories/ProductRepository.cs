@@ -1,12 +1,11 @@
-using API.Data;
 using Application.Interfaces;
 using Domain.Entities;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Repositories;
+namespace Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepository
-
 {
     private readonly AppDbContext _ctx;
     public ProductRepository(AppDbContext ctx) => _ctx = ctx;

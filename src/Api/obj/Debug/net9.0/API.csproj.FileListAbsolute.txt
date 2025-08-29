@@ -170,3 +170,4 @@ C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\refint\API.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.pdb
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.genruntimeconfig.cache
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\ref\API.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\API\obj\Debug\net9.0\API.sourcelink.json

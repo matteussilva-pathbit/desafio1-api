@@ -13,3 +13,4 @@ C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\obj\Debug\net9.0\Application.d
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\obj\Debug\net9.0\refint\Application.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\obj\Debug\net9.0\Application.pdb
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\obj\Debug\net9.0\ref\Application.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\obj\Debug\net9.0\Application.sourcelink.json

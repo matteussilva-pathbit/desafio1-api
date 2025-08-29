@@ -9,3 +9,4 @@ C:\Users\OBERDAN\Desktop\DESAFIO1\src\Common\obj\Debug\net9.0\Common.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\Common\obj\Debug\net9.0\refint\Common.dll
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\Common\obj\Debug\net9.0\Common.pdb
 C:\Users\OBERDAN\Desktop\DESAFIO1\src\Common\obj\Debug\net9.0\ref\Common.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\src\Common\obj\Debug\net9.0\Common.sourcelink.json

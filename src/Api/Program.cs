@@ -1,26 +1,18 @@
-using API.Data;
-using Api.Profiles;                  // ProductProfile
-using Api.Repositories;
 using Application.Interfaces;
 using Application.Services;
+using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-
-//  nao precisa de "using AutoMapper.Extensions.Microsoft.DependencyInjection;"
-// o metodo de extensão está em Microsoft.Extensions.DependencyInjection (já incluso)
+using Api.Profiles; // se seus Profiles estão em Api (ajuste o namespace após renomear)
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DbContext (ajuste para Sqlite se for o caso)
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(opt =>
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Se usar SQLite: opt.UseSqlite(...)
 
-// ✅ AutoMapper: usa apenas a Action de configuração (sem Assembly)
-builder.Services.AddAutoMapper(cfg =>
-{
-    cfg.AddProfile<ProductProfile>();
-});
+builder.Services.AddAutoMapper(typeof(ProductProfile)); // ou o seu profile principal
 
-// DI
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
@@ -29,10 +21,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
 app.UseSwagger();
 app.UseSwaggerUI();
 // app.UseHttpsRedirection();
-
 app.MapControllers();
 app.Run();

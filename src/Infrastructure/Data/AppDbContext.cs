@@ -1,14 +1,14 @@
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore; // <- CERTIFICA que é "EntityFrameworkCore"
+using Microsoft.EntityFrameworkCore;
 
-namespace API.Data;
+namespace Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
     public DbSet<Customer> Customers => Set<Customer>();
-    public DbSet<Product> Products => Set<Product>();
+    public DbSet<Product>  Products  => Set<Product>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
