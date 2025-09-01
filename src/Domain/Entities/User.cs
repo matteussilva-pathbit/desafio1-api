@@ -1,28 +1,15 @@
-using System;
+namespace Domain.Entities;
 
-namespace Domain.Entities
+public enum UserType { ADMNISTRADOR, CLIENTE }
+
+public class User
 {
-    public enum UserType
-    {
-        CLIENTE,
-        ADMINISTRADOR
-    }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Email { get; set; } = string.Empty;
+    public string UserName { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty; //SHA-256
+    public UserType Type { get; set; } = UserType.CLIENTE;
 
-    public class User
-    {
-        public Guid Id { get; private set; }
-        public string Username { get; private set; }
-        public string Email { get; private set; }
-        public string Password { get; private set; }
-        public UserType Tipo { get; private set; }
-
-        public User(string username, string email, string password, UserType tipo)
-        {
-            Id = Guid.NewGuid();
-            Username = username;
-            Email = email;
-            Password = password;
-            Tipo = tipo;
-        }
-    }
+    public Guid? CustomerId { get; set; }
+    public Customer? Customer { get; set; }
 }

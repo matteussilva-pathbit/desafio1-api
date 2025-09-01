@@ -1,29 +1,57 @@
 using Domain.Entities;
-using Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
 
-public class AppDbContext : IdentityDbContext<AppUser>
+public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<Product>  Products  => Set<Product>();
+    public DbSet<User> Users => Set<User>();
     public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<Product> Products => Set<Product>();
+    public DbSet<Order> Orders => Set<Order>();
+    public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Product>(e =>
+        modelBuilder.Entity<User>(e =>
         {
-            e.HasKey(p => p.Id);
-            e.Property(p => p.Name).IsRequired().HasMaxLength(120);
-            e.Property(p => p.Price).HasColumnType("decimal(18,2)");
+            e.HasKey(x => x.Id);
+            e.HasIndex(x => x.Email).IsUnique();
+            e.HasIndex(x => x.UserName).IsUnique();
+            e.Property(x => x.Type).HasConversion<string>();
+            e.HasOne(x => x.Customer).WithOne().HasForeignKey<User>(x => x.CustomerId);
         });
 
-        // Se tiver configurações de Customer, coloque aqui
-        // modelBuilder.Entity<Customer>(...)
+        modelBuilder.Entity<Customer>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Name).IsRequired().HasMaxLength(150);
+            e.Property(x => x.Email).IsRequired().HasMaxLength(200);
+        });
+
+        modelBuilder.Entity<Product>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Name).IsRequired().HasMaxLength(120);
+            e.Property(x => x.Price).HasColumnType("numeric(18,2)");
+        });
+
+        modelBuilder.Entity<Order>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.HasOne(x => x.Customer).WithMany(c => c.Orders).HasForeignKey(x => x.CustomerId);
+        });
+
+        modelBuilder.Entity<OrderItem>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.HasOne(x => x.Order).WithMany(o => o.Items).HasForeignKey(x => x.OrderId);
+            e.HasOne(x => x.Product).WithMany(p => p.OrderItems).HasForeignKey(x => x.ProductId);
+            e.Property(x => x.UnitPrice).HasColumnType("numeric(18,2)");
+        });
     }
 }

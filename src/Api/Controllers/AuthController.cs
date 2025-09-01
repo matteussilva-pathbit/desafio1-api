@@ -1,28 +1,31 @@
 using Application.DTOs.Auth;
 using Application.Interfaces;
-using Infrastructure.Identity;                 // <- AQUI!
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _auth;
-    private readonly UserManager<AppUser> _userManager;           // <- AppUser de Infrastructure.Identity
-    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public AuthController(IAuthService auth,
-                          UserManager<AppUser> userManager,       // <- SEM "Domain.Entities."
-                          RoleManager<IdentityRole> roleManager)
+    public AuthController(IAuthService auth) => _auth = auth;
+
+    [HttpPost("signup")]
+    [AllowAnonymous] // sem JWT
+    public async Task<IActionResult> SignUp([FromBody] RegisterDto dto, CancellationToken ct)
     {
-        _auth = auth;
-        _userManager = userManager;
-        _roleManager = roleManager;
+        var ok = await _auth.RegisterAsync(dto, ct);
+        return ok ? Ok() : BadRequest("Não foi possível registrar.");
     }
 
-    // ... resto do controller
+    [HttpPost("login")]
+    [AllowAnonymous] // sem JWT
+    public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginDto dto, CancellationToken ct)
+    {
+        var result = await _auth.LoginAsync(dto, ct);
+        return result is null ? Unauthorized() : Ok(result);
+    }
 }

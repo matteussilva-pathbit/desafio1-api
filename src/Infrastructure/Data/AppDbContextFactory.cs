@@ -8,17 +8,18 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
     public AppDbContext CreateDbContext(string[] args)
     {
-        var config = new ConfigurationBuilder()
+        var cfg = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
-            .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: false)
+            .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile("appsettings.Development.json", optional: true)
+            .AddEnvironmentVariables()
             .Build();
 
-        var cs = config.GetConnectionString("DefaultConnection")
-                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
+        var cs = cfg.GetConnectionString("DefaultConnection")
+                 ?? "Host=localhost;Port=5432;Database=desafio_db;Username=postgres;Password=postgres";
 
         var opts = new DbContextOptionsBuilder<AppDbContext>()
-            .UseSqlServer(cs) // troque para UseSqlite(cs) se for SQLite
+            .UseNpgsql(cs) // estamos com PostgreSQL
             .Options;
 
         return new AppDbContext(opts);

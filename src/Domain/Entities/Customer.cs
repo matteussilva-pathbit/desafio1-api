@@ -1,18 +1,10 @@
-using System;
+namespace Domain.Entities;
 
-namespace Domain.Entities
+public class Customer
 {
-    public class Customer
-    {
-        public Guid Id { get; private set; }
-        public string Nome { get; private set; }
-        public string Email { get; private set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
-        public Customer(string nome, string email)
-        {
-            Id = Guid.NewGuid();
-            Nome = nome;
-            Email = email;
-        }
-    }
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 }
