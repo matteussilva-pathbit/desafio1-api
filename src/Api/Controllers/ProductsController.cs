@@ -1,48 +1,73 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Application.DTOs.Product;
+using Domain.Entities;
+using Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/products")]
 public class ProductsController : ControllerBase
 {
-    private readonly IProductService _service;
-    public ProductsController(IProductService service) => _service = service;
+    private readonly AppDbContext _ctx;
+    public ProductsController(AppDbContext ctx) => _ctx = ctx;
 
     [HttpGet]
-    public async Task<ActionResult<List<ProductReadDto>>> GetAll(CancellationToken ct)
-        => Ok(await _service.GetAllAsync(ct));
+    [Authorize(AuthenticationSchemes = "Bearer,Basic")]
+    public async Task<ActionResult<IEnumerable<Product>>> GetAll(CancellationToken ct)
+        => Ok(await _ctx.Products.AsNoTracking().ToListAsync(ct));
 
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<ProductReadDto>> GetById(int id, CancellationToken ct)
-    {
-        var result = await _service.GetByIdAsync(id, ct);
-        return result is null ? NotFound() : Ok(result);
-    }
+    [HttpGet("{id:guid}")]
+    [Authorize(AuthenticationSchemes = "Bearer,Basic")]
+    public async Task<ActionResult<Product>> GetById([FromRoute] Guid id, CancellationToken ct)
+        => await _ctx.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id, ct) is { } p ? Ok(p) : NotFound();
 
     [HttpPost]
-    public async Task<ActionResult<ProductReadDto>> Create([FromBody] ProductCreateDto dto, CancellationToken ct)
+    [Authorize(AuthenticationSchemes = "Bearer,Basic", Policy = "Admin")]
+    public async Task<IActionResult> Create([FromBody] Product dto, CancellationToken ct)
     {
-        var created = await _service.CreateAsync(dto, ct);
-        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        if (string.IsNullOrWhiteSpace(dto.Name)) return BadRequest("Nome é obrigatório.");
+        if (dto.Price < 0) return BadRequest("Preço inválido.");
+        if (dto.QuantityAvailable <= 0) return BadRequest("Quantidade deve ser > 0.");
+
+        _ctx.Products.Add(dto);
+        await _ctx.SaveChangesAsync(ct);
+        return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
     }
 
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDto dto, CancellationToken ct)
+    [HttpPut("{id:guid}")]
+    [Authorize(AuthenticationSchemes = "Bearer,Basic", Policy = "Admin")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Product dto, CancellationToken ct)
     {
-        var ok = await _service.UpdateAsync(id, dto, ct);
-        return ok ? NoContent() : NotFound();
+        var p = await _ctx.Products.FirstOrDefaultAsync(x => x.Id == id, ct);
+        if (p is null) return NotFound();
+
+        if (string.IsNullOrWhiteSpace(dto.Name)) return BadRequest("Nome é obrigatório.");
+        if (dto.Price < 0) return BadRequest("Preço inválido.");
+        if (dto.QuantityAvailable < 0) return BadRequest("Quantidade não pode ser negativa.");
+
+        p.Name = dto.Name;
+        p.Price = dto.Price;
+        p.QuantityAvailable = dto.QuantityAvailable;
+
+        await _ctx.SaveChangesAsync(ct);
+        return NoContent();
     }
 
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id, CancellationToken ct)
+    [HttpDelete("{id:guid}")]
+    [Authorize(AuthenticationSchemes = "Bearer,Basic", Policy = "Admin")]
+    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct)
     {
-        var ok = await _service.DeleteAsync(id, ct);
-        return ok ? NoContent() : NotFound();
+        var p = await _ctx.Products.FirstOrDefaultAsync(x => x.Id == id, ct);
+        if (p is null) return NotFound();
+
+        _ctx.Products.Remove(p);
+        await _ctx.SaveChangesAsync(ct);
+        return NoContent();
     }
 }

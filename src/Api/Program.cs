@@ -1,9 +1,8 @@
 using Api.Auth;
 using Application.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.External;
+using Infrastructure.External;                  // (deixe só UMA vez)
 using Infrastructure.Repositories;
-using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -13,13 +12,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DbContext (PostgreSQL)
+// DbContext
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// DI – Repositórios e Serviços
+// DI
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderService, OrderService>();     // Application.IOrderService -> Infrastructure.External.OrderService
 builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
 
 // Auth: Basic + JWT
@@ -41,9 +40,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
-        )
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     };
 });
 
@@ -56,7 +53,7 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddControllers();
 
-// Swagger (com Bearer e Basic)
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -72,8 +69,7 @@ builder.Services.AddSwaggerGen(c =>
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        { new OpenApiSecurityScheme { Reference = new OpenApiReference {
-              Type = ReferenceType.SecurityScheme, Id = "Bearer"}}, new string[] {} }
+        { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer"} }, new string[] {} }
     });
 
     c.AddSecurityDefinition("Basic", new OpenApiSecurityScheme
@@ -86,15 +82,18 @@ builder.Services.AddSwaggerGen(c =>
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        { new OpenApiSecurityScheme { Reference = new OpenApiReference {
-              Type = ReferenceType.SecurityScheme, Id = "Basic"}}, new string[] {} }
+        { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Basic"} }, new string[] {} }
     });
 });
 
-var app = builder.Build();
+// ******** ORDEM CORRETA DAQUI PRA BAIXO ********
+var app = builder.Build();                    // << declare antes de usar 'app'
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 

@@ -7,6 +7,8 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api")]
+[Authorize(AuthenticationSchemes = "Bearer,Basic", Policy = "Admin")]      // ou "Customer"
+
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _auth;

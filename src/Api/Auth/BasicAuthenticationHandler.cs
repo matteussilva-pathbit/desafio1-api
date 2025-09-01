@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using System.Text;
-using System.Text.Encodings.Web;                 // UrlEncoder
-using Application.Interfaces;
+using System.Text.Encodings.Web;
+using Application.Interfaces;               // ✅ <- aqui está a interface certa
 using Common.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
@@ -14,16 +14,18 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
 
     private readonly IUserRepository _users;
 
-    public BasicAuthenticationHandler(
-        IOptionsMonitor<AuthenticationSchemeOptions> options,
-        ILoggerFactory logger,
-        UrlEncoder encoder,
-        ISystemClock clock,                       // ✅ use ISystemClock
-        IUserRepository users)
-        : base(options, logger, encoder, clock)   // ✅ compatível
-    {
-        _users = users;
-    }
+   public BasicAuthenticationHandler(
+    IOptionsMonitor<AuthenticationSchemeOptions> options,
+    ILoggerFactory logger,
+    UrlEncoder encoder,
+    ISystemClock clock,                     // warning é ok por enquanto
+    IUserRepository users)                  // ✅ tipo correto
+    : base(options, logger, encoder, clock)
+{
+    _users = users;
+}
+
+
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
