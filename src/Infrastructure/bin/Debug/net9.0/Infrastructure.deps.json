@@ -1111,6 +1111,7 @@
       "Application/1.0.0": {
         "dependencies": {
           "AutoMapper": "15.0.1",
+          "Common": "1.0.0",
           "Domain": "1.0.0"
         },
         "runtime": {

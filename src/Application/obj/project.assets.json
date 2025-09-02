@@ -192,6 +192,16 @@
           }
         }
       },
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
+      },
       "Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -563,6 +573,11 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
+    },
     "Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Domain.csproj",
@@ -572,6 +587,7 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "AutoMapper >= 15.0.1",
+      "Common >= 1.0.0",
       "Domain >= 1.0.0"
     ]
   },
@@ -607,6 +623,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
+            "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Common\\Common.csproj"
+            },
             "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Domain\\Domain.csproj": {
               "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Domain\\Domain.csproj"
             }

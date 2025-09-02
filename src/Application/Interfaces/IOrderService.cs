@@ -1,6 +1,11 @@
-namespace Application.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-public interface IOrderService
+namespace Application.Interfaces
 {
-    Task<Domain.Entities.Order> CreateAsync(Guid customerId, Guid productId, int quantity, string cep, CancellationToken ct = default);
+    public interface IOrderService
+    {
+        Task<Guid> CreateAsync(Guid customerId, Guid productId, int quantity, string cep, CancellationToken ct = default);
+    }
 }

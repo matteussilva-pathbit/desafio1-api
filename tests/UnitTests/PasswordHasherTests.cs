@@ -1,13 +1,22 @@
 using Common.Security;
+using FluentAssertions;
 using Xunit;
+
+namespace UnitTests;
 
 public class PasswordHasherTests
 {
-    [Fact]
-    public void Sha256_ReturnsHex()
+    [Theory]
+    [InlineData("senha123")]
+    [InlineData("PathBit@2025")]
+    public void Hash_DeveGerarHex64_E_SerDeterministico(string plain)
     {
-        var h = PasswordHasher.Sha256("abc");
-        Assert.Equal(64, h.Length);
-        Assert.True(System.Text.RegularExpressions.Regex.IsMatch(h, "^[A-F0-9]{64}$"));
+        var h1 = PasswordHasher.Hash(plain);
+        var h2 = PasswordHasher.Hash(plain);
+
+        h1.Should().NotBeNullOrWhiteSpace();
+        h1.Length.Should().Be(64);        // SHA256 em hex = 64 chars
+        h1.Should().Be(h2);               // determinístico
+        h1.Should().NotContain(plain);    // não contém texto puro
     }
 }

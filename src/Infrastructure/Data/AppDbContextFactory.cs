@@ -1,27 +1,32 @@
+using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Infrastructure.Data;
-
-public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+namespace Infrastructure.Data
 {
-    public AppDbContext CreateDbContext(string[] args)
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
-        var cfg = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: true)
-            .AddJsonFile("appsettings.Development.json", optional: true)
-            .AddEnvironmentVariables()
-            .Build();
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
-        var cs = cfg.GetConnectionString("DefaultConnection")
-                 ?? "Host=localhost;Port=5432;Database=desafio_db;Username=postgres;Password=postgres";
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddJsonFile($"appsettings.{env}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
 
-        var opts = new DbContextOptionsBuilder<AppDbContext>()
-            .UseNpgsql(cs) // estamos com PostgreSQL
-            .Options;
+            var cs = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+                     ?? config.GetConnectionString("DefaultConnection")
+                     ?? "Host=localhost;Port=5432;Database=desafio_db;Username=postgres;Password=postgres";
 
-        return new AppDbContext(opts);
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql(cs);
+
+            return new AppDbContext(optionsBuilder.Options);
+        }
     }
 }

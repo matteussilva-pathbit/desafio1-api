@@ -1,1 +1,7 @@
 /src/Api/logs/
+**/bin/
+**/obj/
+TestResults/
+coverage/
+.coverage
+

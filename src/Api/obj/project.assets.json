@@ -2542,6 +2542,7 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "AutoMapper": "15.0.1",
+          "Common": "1.0.0",
           "Domain": "1.0.0"
         },
         "compile": {
@@ -2580,12 +2581,12 @@
           "Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.3.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.8",
-          "Microsoft.EntityFrameworkCore": "9.0.8",
+          "Microsoft.EntityFrameworkCore": "9.0.0",
           "Microsoft.Extensions.Configuration": "9.0.8",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.8",
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": "9.0.8",
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": "9.0.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "9.0.8",
-          "Microsoft.Extensions.Configuration.Json": "9.0.8",
+          "Microsoft.Extensions.Configuration.Json": "9.0.0",
           "Microsoft.IdentityModel.Tokens": "8.14.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
           "System.IdentityModel.Tokens.Jwt": "8.14.0"
@@ -6857,6 +6858,7 @@
     "net9.0": [
       "Application >= 1.0.0",
       "AutoMapper >= 15.0.1",
+      "Common >= 1.0.0",
       "Domain >= 1.0.0",
       "Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 9.0.8",
@@ -6877,11 +6879,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\API.csproj",
-      "projectName": "API",
-      "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Api\\Api.csproj",
+      "projectName": "Api",
+      "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Api\\Api.csproj",
       "packagesPath": "C:\\Users\\OBERDAN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\obj\\",
+      "outputPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6904,6 +6906,9 @@
           "projectReferences": {
             "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Application\\Application.csproj": {
               "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Application\\Application.csproj"
+            },
+            "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Common\\Common.csproj"
             },
             "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Domain\\Domain.csproj": {
               "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Domain\\Domain.csproj"

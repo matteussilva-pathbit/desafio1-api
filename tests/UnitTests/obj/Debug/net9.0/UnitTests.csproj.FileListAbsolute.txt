@@ -161,3 +161,4 @@ C:\Users\OBERDAN\Desktop\DESAFIO1\tests\UnitTests\obj\Debug\net9.0\refint\UnitTe
 C:\Users\OBERDAN\Desktop\DESAFIO1\tests\UnitTests\obj\Debug\net9.0\UnitTests.pdb
 C:\Users\OBERDAN\Desktop\DESAFIO1\tests\UnitTests\obj\Debug\net9.0\UnitTests.genruntimeconfig.cache
 C:\Users\OBERDAN\Desktop\DESAFIO1\tests\UnitTests\obj\Debug\net9.0\ref\UnitTests.dll
+C:\Users\OBERDAN\Desktop\DESAFIO1\tests\UnitTests\obj\Debug\net9.0\MvcTestingAppManifest.json
