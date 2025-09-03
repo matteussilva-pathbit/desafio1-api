@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IimACaMgow8=",
+  "dgSpecHash": "4luVZ6i1NJ0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\Api.csproj",
+  "projectFilePath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OBERDAN\\.nuget\\packages\\automapper\\15.0.1\\automapper.15.0.1.nupkg.sha512",
     "C:\\Users\\OBERDAN\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

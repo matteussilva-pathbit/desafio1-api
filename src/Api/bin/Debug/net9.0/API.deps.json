@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "Api/1.0.0": {
+      "API/1.0.0": {
         "dependencies": {
           "Application": "1.0.0",
           "AutoMapper": "15.0.1",
@@ -24,7 +24,7 @@
           "Swashbuckle.AspNetCore": "9.0.4"
         },
         "runtime": {
-          "Api.dll": {}
+          "API.dll": {}
         }
       },
       "AutoMapper/15.0.1": {
@@ -1538,7 +1538,7 @@
     }
   },
   "libraries": {
-    "Api/1.0.0": {
+    "API/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
