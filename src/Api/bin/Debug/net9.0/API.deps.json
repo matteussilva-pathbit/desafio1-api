@@ -19,6 +19,7 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.8",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.8",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
           "Serilog.AspNetCore": "9.0.0",
           "Serilog.Sinks.File": "7.0.0",
           "Swashbuckle.AspNetCore": "9.0.4"

@@ -1,30 +1,49 @@
-using Common.Security;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Domain.Entities;
-using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+using Domain.Enums;
+using Domain.Repositories;
 
-namespace Infrastructure.Seed;
-
-public static class DbSeeder
+namespace Infrastructure.Seed
 {
-    public static async Task SeedAsync(AppDbContext ctx)
+    public sealed class DbSeeder
     {
-        await ctx.Database.MigrateAsync();
+        private readonly IUserRepository _users;
+        private readonly ICustomerRepository _customers;
+        private readonly IUnitOfWork _uow;
 
-        if (!await ctx.Users.AnyAsync(u => u.Type == UserType.ADMINISTRADOR))
+        public DbSeeder(IUserRepository users, ICustomerRepository customers, IUnitOfWork uow)
         {
-            var adminCustomer = new Customer { Name = "Admin", Email = "admin@local" };
-            ctx.Customers.Add(adminCustomer);
+            _users = users;
+            _customers = customers;
+            _uow = uow;
+        }
 
-            var admin = new User {
-                Email = "admin@local",
-                UserName = "admin",
-                PasswordHash = PasswordHasher.Sha256("Admin@123"),
-                Type = UserType.ADMINISTRADOR,
-                CustomerId = adminCustomer.Id
-            };
-            ctx.Users.Add(admin);
-            await ctx.SaveChangesAsync();
+        public async Task SeedAsync(CancellationToken ct)
+        {
+            using var sha = SHA256.Create();
+            var hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes("admin123"));
+            var hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+
+            var customer = Customer.Create("Administrador", "admin@pathbit.com");
+            var user = User.Create("admin@pathbit.com", "admin", hash, UserType.Administrador);
+
+            await _uow.BeginTransactionAsync(ct);
+            try
+            {
+                await _customers.AddAsync(customer, ct);
+                await _users.AddAsync(user, ct);
+
+                await _uow.SaveChangesAsync(ct);
+                await _uow.CommitAsync(ct);
+            }
+            catch
+            {
+                await _uow.RollbackAsync(ct);
+                throw;
+            }
         }
     }
 }

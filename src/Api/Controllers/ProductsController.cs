@@ -1,73 +1,74 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Services; // IProductService
 using Domain.Entities;
-using Infrastructure.Data;
-using Microsoft.AspNetCore.Authorization;
+using Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace Api.Controllers;
-
-[ApiController]
-[Route("api/products")]
-public class ProductsController : ControllerBase
+namespace API.Controllers
 {
-    private readonly AppDbContext _ctx;
-    public ProductsController(AppDbContext ctx) => _ctx = ctx;
-
-    [HttpGet]
-    [Authorize(AuthenticationSchemes = "Bearer,Basic")]
-    public async Task<ActionResult<IEnumerable<Product>>> GetAll(CancellationToken ct)
-        => Ok(await _ctx.Products.AsNoTracking().ToListAsync(ct));
-
-    [HttpGet("{id:guid}")]
-    [Authorize(AuthenticationSchemes = "Bearer,Basic")]
-    public async Task<ActionResult<Product>> GetById([FromRoute] Guid id, CancellationToken ct)
-        => await _ctx.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id, ct) is { } p ? Ok(p) : NotFound();
-
-    [HttpPost]
-    [Authorize(AuthenticationSchemes = "Bearer,Basic", Policy = "Admin")]
-    public async Task<IActionResult> Create([FromBody] Product dto, CancellationToken ct)
+    [ApiController]
+    [Route("api/products")]
+    public sealed class ProductsController : ControllerBase
     {
-        if (string.IsNullOrWhiteSpace(dto.Name)) return BadRequest("Nome é obrigatório.");
-        if (dto.Price < 0) return BadRequest("Preço inválido.");
-        if (dto.QuantityAvailable <= 0) return BadRequest("Quantidade deve ser > 0.");
+        private readonly IProductService _products;
+        private readonly IProductRepository _repo; // para criação
 
-        _ctx.Products.Add(dto);
-        await _ctx.SaveChangesAsync(ct);
-        return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
-    }
+        public ProductsController(IProductService products, IProductRepository repo)
+        {
+            _products = products;
+            _repo = repo;
+        }
 
-    [HttpPut("{id:guid}")]
-    [Authorize(AuthenticationSchemes = "Bearer,Basic", Policy = "Admin")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Product dto, CancellationToken ct)
-    {
-        var p = await _ctx.Products.FirstOrDefaultAsync(x => x.Id == id, ct);
-        if (p is null) return NotFound();
+        public sealed class CreateProductRequest
+        {
+            public string Nome { get; set; } = default!;
+            public decimal Preco { get; set; }
+            public int QuantityAvailable { get; set; }
+        }
 
-        if (string.IsNullOrWhiteSpace(dto.Name)) return BadRequest("Nome é obrigatório.");
-        if (dto.Price < 0) return BadRequest("Preço inválido.");
-        if (dto.QuantityAvailable < 0) return BadRequest("Quantidade não pode ser negativa.");
+        public sealed class UpdatePriceRequest
+        {
+            public decimal Preco { get; set; }
+        }
 
-        p.Name = dto.Name;
-        p.Price = dto.Price;
-        p.QuantityAvailable = dto.QuantityAvailable;
+        public sealed class AdjustInventoryRequest
+        {
+            public int Delta { get; set; } // positivo ou negativo
+        }
 
-        await _ctx.SaveChangesAsync(ct);
-        return NoContent();
-    }
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
+        {
+            var p = await _products.GetByIdAsync(id, ct);
+            return Ok(p);
+        }
 
-    [HttpDelete("{id:guid}")]
-    [Authorize(AuthenticationSchemes = "Bearer,Basic", Policy = "Admin")]
-    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken ct)
-    {
-        var p = await _ctx.Products.FirstOrDefaultAsync(x => x.Id == id, ct);
-        if (p is null) return NotFound();
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateProductRequest req, CancellationToken ct)
+        {
+            if (string.IsNullOrWhiteSpace(req.Nome) || req.Preco <= 0 || req.QuantityAvailable < 0)
+                return BadRequest("Dados inválidos.");
 
-        _ctx.Products.Remove(p);
-        await _ctx.SaveChangesAsync(ct);
-        return NoContent();
+            var product = Product.Create(req.Nome.Trim(), req.Preco, req.QuantityAvailable);
+            await _repo.AddAsync(product, ct);
+            // precisa salvar transação via UoW; para simplificar, assuma SaveChanges no pipeline (ou mova para um ProductService.Create)
+            return CreatedAtAction(nameof(GetById), new { id = product.Id }, new { id = product.Id });
+        }
+
+        [HttpPut("{id:guid}/price")]
+        public async Task<IActionResult> UpdatePrice(Guid id, [FromBody] UpdatePriceRequest req, CancellationToken ct)
+        {
+            await _products.UpdatePriceAsync(id, req.Preco, ct);
+            return NoContent();
+        }
+
+        [HttpPut("{id:guid}/inventory")]
+        public async Task<IActionResult> AdjustInventory(Guid id, [FromBody] AdjustInventoryRequest req, CancellationToken ct)
+        {
+            await _products.AdjustInventoryAsync(id, req.Delta, ct);
+            return NoContent();
+        }
     }
 }

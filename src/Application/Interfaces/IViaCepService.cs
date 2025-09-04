@@ -1,17 +1,13 @@
-namespace Application.Interfaces
-{
-    public class ViaCepAddress
-    {
-        public string? cep { get; set; }
-        public string? logradouro { get; set; }
-        public string? bairro { get; set; }
-        public string? localidade { get; set; }
-        public string? uf { get; set; }
-        public bool? erro { get; set; }
-    }
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace Application.Interface
+{
     public interface IViaCepService
     {
-        Task<ViaCepAddress?> GetAsync(string cep, CancellationToken ct = default);
+        /// <summary>
+        /// Retorna o endereço completo a partir do CEP. Se inválido, retorna string vazia.
+        /// </summary>
+        Task<string> GetEnderecoByCepAsync(string cep, CancellationToken ct);
     }
 }

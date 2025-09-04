@@ -1,37 +1,25 @@
-using Application.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Repositories;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
-
-public class ProductRepository : IProductRepository
+namespace Infrastructure.Repositories
 {
-    private readonly AppDbContext _ctx;
-    public ProductRepository(AppDbContext ctx) => _ctx = ctx;
-
-    public async Task<List<Product>> GetAllAsync(CancellationToken ct = default)
-        => await _ctx.Products.AsNoTracking().ToListAsync(ct);
-
-    public async Task<Product?> GetByIdAsync(int id, CancellationToken ct = default)
-        => await _ctx.Products.FindAsync([id], ct);
-
-    public async Task<Product> AddAsync(Product product, CancellationToken ct = default)
+    public sealed class ProductRepository : IProductRepository
     {
-        _ctx.Products.Add(product);
-        await _ctx.SaveChangesAsync(ct);
-        return product;
-    }
+        private readonly AppDbContext _ctx;
+        public ProductRepository(AppDbContext ctx) => _ctx = ctx;
 
-    public async Task UpdateAsync(Product product, CancellationToken ct = default)
-    {
-        _ctx.Products.Update(product);
-        await _ctx.SaveChangesAsync(ct);
-    }
+        public Task<Product?> GetByIdAsync(Guid id, CancellationToken ct)
+            => _ctx.Products.FirstOrDefaultAsync(p => p.Id == id, ct);
 
-    public async Task DeleteAsync(Product product, CancellationToken ct = default)
-    {
-        _ctx.Products.Remove(product);
-        await _ctx.SaveChangesAsync(ct);
+        public async Task AddAsync(Product product, CancellationToken ct)
+            => await _ctx.Products.AddAsync(product, ct);
+
+        public void Update(Product product)
+            => _ctx.Products.Update(product);
     }
 }

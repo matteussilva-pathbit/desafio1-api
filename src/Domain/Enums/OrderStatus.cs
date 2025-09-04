@@ -1,10 +1,8 @@
-namespace Domain.Enums;
-
-public enum OrderStatus
+namespace Domain.Enums
 {
-    ENVIADO = 0,     // atende ao requisito do desafio
-    PENDENTE = 1,
-    CONCLUIDO = 2,
-    CANCELADO = 3
+    // O enunciado cita status ENVIADO. Mantemos Enviado como status padrão.
+    public enum OrderStatus
+    {
+        Enviado = 1
+    }
 }
-

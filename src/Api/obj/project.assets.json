@@ -2581,7 +2581,7 @@
           "Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.3.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.8",
-          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.8",
           "Microsoft.Extensions.Configuration": "9.0.8",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.8",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "9.0.0",
@@ -6867,6 +6867,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 9.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.8",
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
       "Serilog.AspNetCore >= 9.0.0",
       "Serilog.Sinks.File >= 7.0.0",
       "Swashbuckle.AspNetCore >= 9.0.4"
@@ -6879,11 +6880,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Api\\Api.csproj",
+      "projectUniqueName": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Api\\Api.csproj",
+      "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\Api.csproj",
       "packagesPath": "C:\\Users\\OBERDAN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Api\\obj\\",
+      "outputPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6966,6 +6967,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[9.0.8, )"
+          },
+          "Npgsql.EntityFrameworkCore.PostgreSQL": {
+            "target": "Package",
+            "version": "[9.0.4, )"
           },
           "Serilog.AspNetCore": {
             "target": "Package",

@@ -1,90 +1,53 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;           // IOrderService
-using Application.DTOs.Orders;         // se preferir usar seu DTO global (opcional)
-using Domain.Entities;                 // Order/OrderItem (para listar)
-using Domain.Enums;                    // OrderStatus (se usar em listagens/filtros)
-using Infrastructure.Data;             // AppDbContext (para listagens)
-using Microsoft.AspNetCore.Authorization;
+using Application.Services; // IOrderService
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace Api.Controllers;
-
-[ApiController]
-[Route("api/orders")]
-[Authorize] // <- só Bearer. Policies por ação (Admin/Customer)
-public class OrdersController : ControllerBase
+namespace API.Controllers
 {
-    private readonly AppDbContext _ctx;
-    private readonly IOrderService _orders;
-
-    public OrdersController(AppDbContext ctx, IOrderService orders)
+    [ApiController]
+    [Route("api/orders")]
+    public sealed class OrdersController : ControllerBase
     {
-        _ctx = ctx;
-        _orders = orders;
-    }
+        private readonly IOrderService _orders;
 
-    // Admin lista todos
-    [HttpGet]
-    [Authorize(Policy = "Admin")]
-    public async Task<ActionResult<IEnumerable<Order>>> GetAll(CancellationToken ct)
-        => Ok(await _ctx.Orders
-            .Include(o => o.Items)
-            .AsNoTracking()
-            .ToListAsync(ct));
+        public OrdersController(IOrderService orders)
+        {
+            _orders = orders;
+        }
 
-    // Cliente lista suas próprias orders
-    [HttpGet("mine")]
-    [Authorize(Policy = "Customer")]
-    public async Task<IActionResult> GetMine(CancellationToken ct)
-    {
-        var cidStr = User.FindFirst("customerId")?.Value; // mantém seu nome de claim
-        if (!Guid.TryParse(cidStr, out var cid)) return Unauthorized("Token sem customerId válido.");
+        public sealed class CreateOrderRequestDto
+        {
+            public Guid ProductId { get; set; }
+            public int Quantity { get; set; }
+            public string Cep { get; set; } = default!;
+            public string? AddressOverride { get; set; }
+        }
 
-        var list = await _ctx.Orders
-            .Where(o => o.CustomerId == cid)
-            .Include(o => o.Items)
-            .AsNoTracking()
-            .ToListAsync(ct);
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateOrderRequestDto dto, CancellationToken ct)
+        {
+            // No futuro: pegar customerId do JWT. Por agora, aceite via header para testar.
+            // Exemplo: x-customer-id: GUID
+            var headerId = Request.Headers["x-customer-id"].ToString();
+            if (!Guid.TryParse(headerId, out var customerId) || customerId == Guid.Empty)
+                return BadRequest("x-customer-id inválido. (No futuro virá do JWT)");
 
-        return Ok(list);
-    }
+            var id = await _orders.CreateOrderAsync(new Application.Services.CreateOrderRequest
+            {
+                ProductId = dto.ProductId,
+                Quantity = dto.Quantity,
+                Cep = dto.Cep,
+                AddressOverride = dto.AddressOverride
+            }, customerId, ct);
 
-    // DTO local para criação rápida (se já tiver um DTO global, pode usar ele e remover esta classe)
-    public class OrderCreateRequest
-    {
-        public Guid ProductId { get; set; }
-        public int Quantity { get; set; }
-        public string Cep { get; set; } = string.Empty;
-        public string? DeliveryAddressOverride { get; set; } // ignorado no controller; service valida CEP
-    }
+            return CreatedAtAction(nameof(GetById), new { id }, new { id });
+        }
 
-    // Cliente cria order (service valida CEP, estoque e transação)
-    [HttpPost]
-    [Authorize(Policy = "Customer")]
-    public async Task<IActionResult> Create([FromBody] OrderCreateRequest req, CancellationToken ct)
-    {
-        if (req.Quantity <= 0) return BadRequest("Quantidade inválida.");
-
-        var cidStr = User.FindFirst("customerId")?.Value; // mantém seu nome de claim
-        if (!Guid.TryParse(cidStr, out var customerId)) return Unauthorized("Token sem customerId válido.");
-
-        // toda regra (ViaCEP, estoque, transação) fica no service:
-        var orderId = await _orders.CreateAsync(customerId, req.ProductId, req.Quantity, req.Cep, ct);
-
-        // opcional: buscar a ordem criada para devolver no corpo
-        var created = await _ctx.Orders
-            .Include(o => o.Items)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(o => o.Id == orderId, ct);
-
-        // Sem rota específica de GetById, usamos Created com a URL canônica:
-        return Created($"/api/orders/{orderId}", created is not null ? (object)created : new { id = orderId });
-
+        // apenas um stub para a rota do CreatedAtAction
+        [HttpGet("{id:guid}")]
+        public IActionResult GetById(Guid id) => Ok(new { id });
     }
 }

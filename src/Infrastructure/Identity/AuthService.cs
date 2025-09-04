@@ -1,95 +1,115 @@
-using System.IdentityModel.Tokens.Jwt;   // correto
+using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
-using Application.DTOs.Auth;
-using Application.Interfaces;
-using Common.Security;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Interface;
+using Domain;
 using Domain.Entities;
-using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+using Domain.Enums;
+using Domain.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Infrastructure.Identity;
-
-public class AuthService : IAuthService
+namespace Infrastructure.Identity
 {
-    private readonly AppDbContext _ctx;
-    private readonly IUserRepository _users;
-    private readonly IConfiguration _config;
-
-    public AuthService(AppDbContext ctx, IUserRepository users, IConfiguration config)
+    public sealed class AuthService : IAuthService
     {
-        _ctx = ctx;
-        _users = users;
-        _config = config;
-    }
+        private readonly IUserRepository _users;
+        private readonly ICustomerRepository _customers;
+        private readonly IUnitOfWork _uow;
+        private readonly IConfiguration _config;
 
-    public async Task<bool> RegisterAsync(RegisterDto dto, CancellationToken ct = default)
-    {
-        // cria Customer
-        var customer = new Customer { Name = dto.Name, Email = dto.Email };
-        _ctx.Customers.Add(customer);
-        await _ctx.SaveChangesAsync(ct);
-
-        // cria User com hash SHA-256
-        var typeOk = Enum.TryParse<UserType>(dto.Type, true, out var userType);
-        var user = new User
+        public AuthService(IUserRepository users, ICustomerRepository customers, IUnitOfWork uow, IConfiguration config)
         {
-            Email = dto.Email,
-            UserName = dto.UserName,
-            PasswordHash = PasswordHasher.Sha256(dto.Password),
-            Type = typeOk ? userType : UserType.CLIENTE,
-            CustomerId = customer.Id
-        };
+            _users = users;
+            _customers = customers;
+            _uow = uow;
+            _config = config;
+        }
 
-        _ctx.Users.Add(user);
-        await _ctx.SaveChangesAsync(ct);
-        return true;
-    }
-
-    public async Task<AuthResponseDto?> LoginAsync(LoginDto dto, CancellationToken ct = default)
-    {
-        var user = await _users.GetByUserNameOrEmailAsync(dto.UserNameOrEmail, ct);
-        if (user is null) return null;
-
-        var hash = PasswordHasher.Sha256(dto.Password);
-        if (!hash.Equals(user.PasswordHash, StringComparison.OrdinalIgnoreCase)) return null;
-
-        var expires = DateTime.UtcNow.AddHours(1);
-        var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]!);
-
-        var claims = new List<Claim>
+        public async Task<string> SignUpAsync(string nome, string email, string username, string senha, CancellationToken ct)
         {
-            new("uid", user.Id.ToString()),
-            new(ClaimTypes.Name, user.UserName),
-            new(ClaimTypes.Email, user.Email),
-            new(ClaimTypes.Role, user.Type.ToString()),
-            new("customerId", user.CustomerId?.ToString() ?? "")
-        };
+            // hash SHA256
+            var hash = ComputeSha256(senha);
 
-        var tokenDescriptor = new SecurityTokenDescriptor
+            var customer = Customer.Create(nome, email);
+            var user = User.Create(email, username, hash, UserType.Cliente);
+
+            await _uow.BeginTransactionAsync(ct);
+            try
+            {
+                await _customers.AddAsync(customer, ct);
+                await _users.AddAsync(user, ct);
+                await _uow.SaveChangesAsync(ct);
+                await _uow.CommitAsync(ct);
+            }
+            catch
+            {
+                await _uow.RollbackAsync(ct);
+                throw;
+            }
+
+            // token JWT com 1h
+            return GenerateJwt(customer.Id, customer.Nome, customer.Email, UserType.Cliente);
+        }
+
+        public async Task<string> LoginAsync(string usernameOrEmail, string senha, CancellationToken ct)
         {
-            Subject = new ClaimsIdentity(claims),
-            Expires = expires,
-            Issuer = _config["Jwt:Issuer"],
-            Audience = _config["Jwt:Audience"],
-            SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
-        };
+            var hash = ComputeSha256(senha);
 
-        var handler = new JwtSecurityTokenHandler();
-        var token = handler.CreateToken(tokenDescriptor);
+            // Tenta por email; se quiser, adicione GetByUsernameAsync no repo
+            var user = await _users.GetByEmailAsync(usernameOrEmail, ct);
+            if (user is null)
+                throw new DomainException("Usuário não encontrado.");
 
-        return new AuthResponseDto
+            if (!string.Equals(user.PasswordHash, hash, StringComparison.OrdinalIgnoreCase))
+                throw new DomainException("Credenciais inválidas.");
+
+            // Neste modelo simples, fazemos lookup do customer pelo e-mail do user
+            var customer = await _customers.GetByEmailAsync(user.Email, ct);
+            if (customer is null)
+                throw new DomainException("Cliente não encontrado para o usuário.");
+
+            return GenerateJwt(customer.Id, customer.Nome, customer.Email, user.Tipo);
+        }
+
+        private static string ComputeSha256(string input)
         {
-            AccessToken = handler.WriteToken(token),
-            ExpiresAt = expires,
-            UserName = user.UserName,
-            Role = user.Type.ToString(),
-            CustomerId = user.CustomerId,
-            Email = user.Email,
-            Name = user.Customer?.Name ?? ""
-        };
+            using var sha = SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(input ?? string.Empty));
+            return BitConverter.ToString(bytes).Replace("-", "").ToLowerInvariant();
+        }
+
+        private string GenerateJwt(Guid customerId, string nome, string email, UserType tipo)
+        {
+            var secret = _config["Jwt:Secret"] ?? throw new InvalidOperationException("Jwt:Secret não configurado.");
+            var issuer = _config["Jwt:Issuer"] ?? "desafio-api";
+            var audience = _config["Jwt:Audience"] ?? "desafio-api-clients";
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, customerId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, email),
+                new Claim("name", nome),
+                new Claim(ClaimTypes.Role, tipo == UserType.Administrador ? "ADMIN" : "CLIENTE")
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                claims: claims,
+                notBefore: DateTime.UtcNow,
+                expires: DateTime.UtcNow.AddHours(1), // 1 hora
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Data;
@@ -8,31 +9,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class CustomerRepository : ICustomerRepository
+    public sealed class CustomerRepository : ICustomerRepository
     {
-        private readonly AppDbContext _db;
-        public CustomerRepository(AppDbContext db) => _db = db;
+        private readonly AppDbContext _ctx;
+        public CustomerRepository(AppDbContext ctx) => _ctx = ctx;
 
-        // Interface exige void
-        public void Adicionar(Customer entity)
-        {
-            _db.Customers.Add(entity);
-            _db.SaveChanges();
-        }
+        public async Task AddAsync(Customer customer, CancellationToken ct)
+            => await _ctx.Customers.AddAsync(customer, ct);
 
-        // Ajuste Guid -> int se necessário
-        public Customer? ObterPorId(Guid id)
-        {
-            return _db.Customers
-                      .AsNoTracking()
-                      .FirstOrDefault(c => c.Id == id);
-        }
+        public Task<Customer?> GetByIdAsync(Guid id, CancellationToken ct)
+            => _ctx.Customers.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, ct);
 
-        public IEnumerable<Customer> ObterTodos()
-        {
-            return _db.Customers
-                      .AsNoTracking()
-                      .ToList();
-        }
+        public Task<Customer?> GetByEmailAsync(string email, CancellationToken ct)
+            => _ctx.Customers.AsNoTracking().FirstOrDefaultAsync(c => c.Email == email, ct);
+
+        public async Task<IReadOnlyList<Customer>> GetAllAsync(CancellationToken ct)
+            => await _ctx.Customers.AsNoTracking().ToListAsync(ct);
     }
 }

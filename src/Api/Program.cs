@@ -1,98 +1,72 @@
-using Application.Interfaces;
-using Infrastructure.Data;
+using System.Text;
+using Application.Interface;
 using Application.Services;
+using Domain.Repositories;
+using Infrastructure.Data;
+using Infrastructure.Identity;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Text;
-using Domain.Repositories;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DbContext (Postgres)
-builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
-// DI — repositórios e serviços
-builder.Services.AddScoped<IOrderService, OrderService>();
+// Repositórios + UoW
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>(); 
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// Se existirem, registre também:
-// builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-// builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+// Services de aplicação
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
-// builder.Services.AddScoped<IProductService, ProductService>();
-// builder.Services.AddScoped<IAuthService, AuthService>();
+// Auth service
+builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddHttpClient<Application.Interfaces.IViaCepService, Infrastructure.Services.ViaCepService>();
-
-// AutoMapper (você tem Profiles/ProductProfile.cs)
-builder.Services.AddAutoMapper(cfg => { }, typeof(Api.Profiles.ProductProfile).Assembly);
-
+// ViaCEP
+builder.Services.AddSingleton<IViaCepService>(sp =>
+{
+    var http = new HttpClient { BaseAddress = new Uri("https://viacep.com.br/") };
+    return new ViaCepService(http);
+});
 
 // JWT
-var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!);
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+var secret = builder.Configuration["Jwt:Secret"] ?? "dev-secret-change-me-please";
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(o =>
     {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
+        o.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ClockSkew = TimeSpan.Zero // 1h exata
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
         };
     });
 
-// Policies
-builder.Services.AddAuthorization(options =>
+builder.Services.AddAuthorization(o =>
 {
-    options.AddPolicy("Admin",    p => p.RequireRole("ADMINISTRADOR"));
-    options.AddPolicy("Customer", p => p.RequireRole("CLIENTE"));
+    o.AddPolicy("ADMIN", p => p.RequireRole("ADMIN"));
+    o.AddPolicy("CLIENTE", p => p.RequireRole("CLIENTE"));
 });
 
+// Swagger + Controllers
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-// Swagger (apenas Bearer)
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Desafio API", Version = "v1" });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "JWT Bearer",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer"} }, Array.Empty<string>() }
-    });
-});
-
 var app = builder.Build();
-
-// aplica migrations e (opcional) seed
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
-    // await DbSeeder.SeedAsync(db, scope.ServiceProvider); // se você tiver um seeder async
-}
 
 if (app.Environment.IsDevelopment())
 {

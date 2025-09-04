@@ -4644,7 +4644,7 @@
       "Domain >= 1.0.0",
       "Microsoft.AspNetCore.Identity >= 2.3.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 9.0.8",
-      "Microsoft.EntityFrameworkCore >= 9.*",
+      "Microsoft.EntityFrameworkCore >= 9.0.8",
       "Microsoft.EntityFrameworkCore.Design >= 9.*",
       "Microsoft.Extensions.Configuration >= 9.0.8",
       "Microsoft.Extensions.Configuration.Abstractions >= 9.0.8",
@@ -4726,7 +4726,7 @@
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[9.*, )"
+            "version": "[9.0.8, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

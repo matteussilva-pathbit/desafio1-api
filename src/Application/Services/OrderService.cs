@@ -1,75 +1,94 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;   // IOrderService, IViaCepService
-using Domain.Repositories;     // IOrderRepository, IProductRepository (se você usar)
-using Domain.Entities;         // Order
+using Application.Interface;       // IViaCepService
+using Domain;                      // DomainException
+using Domain.Entities;             // Order
+using Domain.Repositories;         // IProductRepository, IOrderRepository, IUnitOfWork
 
 namespace Application.Services
 {
-    public class OrderService : IOrderService
+    public interface IOrderService
     {
-        private readonly IOrderRepository _orders;
-        private readonly IProductRepository _products;
-        private readonly IViaCepService _cep;
+        Task<Guid> CreateOrderAsync(CreateOrderRequest request, Guid customerId, CancellationToken ct);
+    }
 
-        public OrderService(IOrderRepository orders, IProductRepository products, IViaCepService cep)
+    // DTO simples de criação — ajuste se você já tiver outro DTO
+    public sealed class CreateOrderRequest
+    {
+        public Guid ProductId { get; init; }
+        public int Quantity { get; init; }
+        public string Cep { get; init; } = default!;
+        public string? AddressOverride { get; init; }
+    }
+
+    public sealed class OrderService : IOrderService
+    {
+        private readonly IProductRepository _productRepo;
+        private readonly IOrderRepository _orderRepo;
+        private readonly IUnitOfWork _uow;
+        private readonly IViaCepService _viaCep;
+
+        public OrderService(
+            IProductRepository productRepo,
+            IOrderRepository orderRepo,
+            IUnitOfWork uow,
+            IViaCepService viaCep)
         {
-            _orders = orders;
-            _products = products;
-            _cep = cep;
+            _productRepo = productRepo;
+            _orderRepo = orderRepo;
+            _uow = uow;
+            _viaCep = viaCep;
         }
 
-        // Retorna Guid para casar com seu Domain.Entities.Order.Id
-        public async Task<Guid> CreateAsync(Guid customerId, Guid productId, int quantity, string cep, CancellationToken ct = default)
+        public async Task<Guid> CreateOrderAsync(CreateOrderRequest request, Guid customerId, CancellationToken ct)
         {
-            if (quantity <= 0)
-                throw new ArgumentException("Quantidade deve ser > 0.", nameof(quantity));
+            if (customerId == Guid.Empty)
+                throw new DomainException("CustomerId inválido.");
 
-            if (string.IsNullOrWhiteSpace(cep))
-                throw new ArgumentException("CEP é obrigatório.", nameof(cep));
+            var product = await _productRepo.GetByIdAsync(request.ProductId, ct);
+            if (product is null)
+                throw new DomainException("Produto não encontrado.");
 
-            // 1) Valida CEP via ViaCEP (não persistimos endereço, só validamos conforme regra)
-            var viaCep = await _cep.GetAsync(cep, ct);
-            if (viaCep is null || viaCep.erro == true || string.IsNullOrWhiteSpace(viaCep.logradouro))
-                throw new InvalidOperationException("CEP inválido ou não encontrado no ViaCEP.");
+            if (product.QuantityAvailable <= 0)
+                throw new DomainException("Produto sem estoque disponível.");
 
-            // 2) Transação: valida produto, debita estoque e cria o pedido
-            await _orders.BeginTransactionAsync(ct);
+            if (product.QuantityAvailable < request.Quantity)
+                throw new DomainException("Quantidade solicitada maior que o estoque disponível.");
+
+            // Endereço: override explícito ou ViaCEP
+            var enderecoCompleto = !string.IsNullOrWhiteSpace(request.AddressOverride)
+                ? request.AddressOverride!.Trim()
+                : await _viaCep.GetEnderecoByCepAsync(request.Cep, ct);
+
+            if (string.IsNullOrWhiteSpace(enderecoCompleto))
+                throw new DomainException("CEP inválido ou endereço não encontrado.");
+
+            var order = Order.Create(
+                customerId: customerId,
+                productId: product.Id,
+                quantidade: request.Quantity,
+                precoUnitario: product.Preco,
+                cep: request.Cep,
+                endereco: enderecoCompleto
+            );
+
+            product.DebitarEstoque(request.Quantity);
+
+            await _uow.BeginTransactionAsync(ct);
             try
             {
-                var product = await _orders.GetProductForUpdateAsync(productId, ct);
-                if (product is null)
-                    throw new InvalidOperationException("Produto não existe.");
+                await _orderRepo.AddAsync(order, ct);
+                _productRepo.Update(product);
 
-                if (product.QuantityAvailable < quantity)
-                    throw new InvalidOperationException("Quantidade indisponível para o produto.");
+                await _uow.SaveChangesAsync(ct);
+                await _uow.CommitAsync(ct);
 
-                // Debita estoque
-                product.QuantityAvailable -= quantity;
-
-                // Cria o pedido (somente o que existe no seu domínio)
-                var order = new Order
-                {
-                    // Seu Order **não** tem ProductId/Quantity/Shipping*, então não setamos.
-                    // Presumindo que exista CustomerId no Order:
-                    CustomerId = customerId
-                    // Se seu Order tiver Status/CreatedAt/etc., defina aqui.
-                };
-
-                // Se o seu domínio exigir OrderItems:
-                // - crie e associe um OrderItem aqui (ajuste nomes conforme seu OrderItem):
-                // order.Items = new List<OrderItem> { new OrderItem { ProductId = productId, Quantity = quantity, ... } };
-
-                await _orders.AddAsync(order, ct);
-                await _orders.SaveChangesAsync(ct);
-                await _orders.CommitAsync(ct);
-
-                return order.Id; // Guid
+                return order.Id;
             }
             catch
             {
-                await _orders.RollbackAsync(ct);
+                await _uow.RollbackAsync(ct);
                 throw;
             }
         }

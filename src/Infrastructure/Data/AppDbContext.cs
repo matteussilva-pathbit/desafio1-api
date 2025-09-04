@@ -1,57 +1,59 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Data;
-
-public class AppDbContext : DbContext
+namespace Infrastructure.Data
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
-    public DbSet<User> Users => Set<User>();
-    public DbSet<Customer> Customers => Set<Customer>();
-    public DbSet<Product> Products => Set<Product>();
-    public DbSet<Order> Orders => Set<Order>();
-    public DbSet<OrderItem> OrderItems => Set<OrderItem>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class AppDbContext : DbContext
     {
-        base.OnModelCreating(modelBuilder);
+        public AppDbContext(DbContextOptions options) : base(options) { }
 
-        modelBuilder.Entity<User>(e =>
-        {
-            e.HasKey(x => x.Id);
-            e.HasIndex(x => x.Email).IsUnique();
-            e.HasIndex(x => x.UserName).IsUnique();
-            e.Property(x => x.Type).HasConversion<string>();
-            e.HasOne(x => x.Customer).WithOne().HasForeignKey<User>(x => x.CustomerId);
-        });
+        public DbSet<Product> Products => Set<Product>();
+        public DbSet<Order> Orders => Set<Order>();
+        public DbSet<Customer> Customers => Set<Customer>();
+        public DbSet<User> Users => Set<User>();
 
-        modelBuilder.Entity<Customer>(e =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            e.HasKey(x => x.Id);
-            e.Property(x => x.Name).IsRequired().HasMaxLength(150);
-            e.Property(x => x.Email).IsRequired().HasMaxLength(200);
-        });
+            modelBuilder.Entity<Product>(b =>
+            {
+                b.HasKey(x => x.Id);
+                b.Property(x => x.Nome).IsRequired().HasMaxLength(200);
+                b.Property(x => x.Preco).HasColumnType("numeric(18,2)");
+                b.Property(x => x.QuantityAvailable).IsRequired();
+            });
 
-        modelBuilder.Entity<Product>(e =>
-        {
-            e.HasKey(x => x.Id);
-            e.Property(x => x.Name).IsRequired().HasMaxLength(120);
-            e.Property(x => x.Price).HasColumnType("numeric(18,2)");
-        });
+            modelBuilder.Entity<Customer>(b =>
+            {
+                b.HasKey(x => x.Id);
+                b.Property(x => x.Nome).IsRequired().HasMaxLength(200);
+                b.Property(x => x.Email).IsRequired().HasMaxLength(200);
+            });
 
-        modelBuilder.Entity<Order>(e =>
-        {
-            e.HasKey(x => x.Id);
-            e.HasOne(x => x.Customer).WithMany(c => c.Orders).HasForeignKey(x => x.CustomerId);
-        });
+            modelBuilder.Entity<Order>(b =>
+            {
+                b.HasKey(x => x.Id);
+                b.Property(x => x.CepEntrega).IsRequired().HasMaxLength(20);
+                b.Property(x => x.EnderecoEntrega).IsRequired().HasMaxLength(400);
+                b.Property(x => x.PrecoUnitario).HasColumnType("numeric(18,2)");
 
-        modelBuilder.Entity<OrderItem>(e =>
-        {
-            e.HasKey(x => x.Id);
-            e.HasOne(x => x.Order).WithMany(o => o.Items).HasForeignKey(x => x.OrderId);
-            e.HasOne(x => x.Product).WithMany(p => p.OrderItems).HasForeignKey(x => x.ProductId);
-            e.Property(x => x.UnitPrice).HasColumnType("numeric(18,2)");
-        });
+                b.HasOne(x => x.Customer)
+                 .WithMany(c => c.Orders)
+                 .HasForeignKey(x => x.CustomerId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne(x => x.Product)
+                 .WithMany()
+                 .HasForeignKey(x => x.ProductId)
+                 .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<User>(b =>
+            {
+                b.HasKey(x => x.Id);
+                b.Property(x => x.Email).IsRequired().HasMaxLength(200);
+                b.Property(x => x.Username).IsRequired().HasMaxLength(100);
+                b.Property(x => x.PasswordHash).IsRequired();
+            });
+        }
     }
 }
