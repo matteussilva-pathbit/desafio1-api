@@ -1,27 +1,29 @@
-using System;
 using System.IO;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Data
 {
+    // Usado pelo "dotnet ef" em design-time
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+            // Carrega configuração de appsettings + env vars (prioridade para env)
+            var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
-            var config = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true)
-                .AddJsonFile($"appsettings.{env}.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
+                .AddJsonFile("src/API/appsettings.json", optional: true, reloadOnChange: false)
+                .AddJsonFile($"src/API/appsettings.{env}.json", optional: true, reloadOnChange: false)
+                .AddEnvironmentVariables();
 
-            var cs = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
-                     ?? config.GetConnectionString("DefaultConnection")
-                     ?? "Host=localhost;Port=5432;Database=desafio_db;Username=postgres;Password=postgres";
+            var config = builder.Build();
+
+            var cs = config.GetConnectionString("Default")
+                     ?? "Host=localhost;Port=5433;Database=desafio_db;Username=postgres;Password=postgres";
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseNpgsql(cs);
