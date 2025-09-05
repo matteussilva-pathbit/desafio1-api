@@ -1,8 +1,10 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Services; // IOrderService
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -13,10 +15,7 @@ namespace API.Controllers
     {
         private readonly IOrderService _orders;
 
-        public OrdersController(IOrderService orders)
-        {
-            _orders = orders;
-        }
+        public OrdersController(IOrderService orders) => _orders = orders;
 
         public sealed class CreateOrderRequestDto
         {
@@ -26,14 +25,15 @@ namespace API.Controllers
             public string? AddressOverride { get; set; }
         }
 
+        [Authorize(Policy = "CLIENTE")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateOrderRequestDto dto, CancellationToken ct)
         {
-            // No futuro: pegar customerId do JWT. Por agora, aceite via header para testar.
-            // Exemplo: x-customer-id: GUID
-            var headerId = Request.Headers["x-customer-id"].ToString();
-            if (!Guid.TryParse(headerId, out var customerId) || customerId == Guid.Empty)
-                return BadRequest("x-customer-id inválido. (No futuro virá do JWT)");
+            var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+                   ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!Guid.TryParse(sub, out var customerId) || customerId == Guid.Empty)
+                return Unauthorized("Token sem 'sub' válido.");
 
             var id = await _orders.CreateOrderAsync(new Application.Services.CreateOrderRequest
             {
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetById), new { id }, new { id });
         }
 
-        // apenas um stub para a rota do CreatedAtAction
+        [Authorize]
         [HttpGet("{id:guid}")]
         public IActionResult GetById(Guid id) => Ok(new { id });
     }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Services; // IProductService
 using Domain.Entities;
 using Domain.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -13,7 +14,7 @@ namespace API.Controllers
     public sealed class ProductsController : ControllerBase
     {
         private readonly IProductService _products;
-        private readonly IProductRepository _repo; // para criação
+        private readonly IProductRepository _repo;
 
         public ProductsController(IProductService products, IProductRepository repo)
         {
@@ -45,6 +46,7 @@ namespace API.Controllers
             return Ok(p);
         }
 
+        [Authorize(Policy = "ADMIN")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductRequest req, CancellationToken ct)
         {
@@ -53,10 +55,11 @@ namespace API.Controllers
 
             var product = Product.Create(req.Nome.Trim(), req.Preco, req.QuantityAvailable);
             await _repo.AddAsync(product, ct);
-            // precisa salvar transação via UoW; para simplificar, assuma SaveChanges no pipeline (ou mova para um ProductService.Create)
+
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, new { id = product.Id });
         }
 
+        [Authorize(Policy = "ADMIN")]
         [HttpPut("{id:guid}/price")]
         public async Task<IActionResult> UpdatePrice(Guid id, [FromBody] UpdatePriceRequest req, CancellationToken ct)
         {
@@ -64,6 +67,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize(Policy = "ADMIN")]
         [HttpPut("{id:guid}/inventory")]
         public async Task<IActionResult> AdjustInventory(Guid id, [FromBody] AdjustInventoryRequest req, CancellationToken ct)
         {

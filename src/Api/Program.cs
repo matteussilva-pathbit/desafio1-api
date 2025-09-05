@@ -9,6 +9,7 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +28,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-
-
 
 // Auth service
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -64,16 +63,56 @@ builder.Services.AddAuthorization(o =>
 });
 
 // Swagger + Controllers
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Desafio API",
+        Version = "v1",
+        Description = "API de clientes, produtos e pedidos com JWT"
+    });
+
+    // ✅ Definição do esquema Bearer para habilitar o botão Authorize
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Insira: Bearer {seu_token_jwt}"
+    });
+
+    // ✅ Requisito global: aplica o esquema em todas as operações
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(opt =>
+    {
+        opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Desafio API v1");
+        opt.DisplayRequestDuration();
+    });
 }
 
 app.UseHttpsRedirection();
