@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interface;       // IViaCepService
-using Domain;                      // DomainException
-using Domain.Entities;             // Order
-using Domain.Repositories;         // IProductRepository, IOrderRepository, IUnitOfWork
+using Application.Interface;   // IViaCepService
+using Common;                 // DomainException
+using Domain.Entities;
+using Domain.Repositories;
 
 namespace Application.Services
 {
@@ -13,74 +13,77 @@ namespace Application.Services
         Task<Guid> CreateOrderAsync(CreateOrderRequest request, Guid customerId, CancellationToken ct);
     }
 
-    // DTO simples de criação — ajuste se você já tiver outro DTO
     public sealed class CreateOrderRequest
     {
-        public Guid ProductId { get; init; }
-        public int Quantity { get; init; }
-        public string Cep { get; init; } = default!;
-        public string? AddressOverride { get; init; }
+        public Guid ProductId { get; set; }
+        public int Quantity { get; set; }
+        public string Cep { get; set; } = default!;
+        public string? AddressOverride { get; set; }
     }
 
     public sealed class OrderService : IOrderService
     {
-        private readonly IProductRepository _productRepo;
-        private readonly IOrderRepository _orderRepo;
+        private readonly IOrderRepository _orders;
+        private readonly IProductRepository _products;
+        private readonly ICustomerRepository _customers;
         private readonly IUnitOfWork _uow;
         private readonly IViaCepService _viaCep;
 
         public OrderService(
-            IProductRepository productRepo,
-            IOrderRepository orderRepo,
+            IOrderRepository orders,
+            IProductRepository products,
+            ICustomerRepository customers,
             IUnitOfWork uow,
             IViaCepService viaCep)
         {
-            _productRepo = productRepo;
-            _orderRepo = orderRepo;
+            _orders = orders;
+            _products = products;
+            _customers = customers;
             _uow = uow;
             _viaCep = viaCep;
         }
 
         public async Task<Guid> CreateOrderAsync(CreateOrderRequest request, Guid customerId, CancellationToken ct)
         {
-            if (customerId == Guid.Empty)
-                throw new DomainException("CustomerId inválido.");
+            if (request.Quantity <= 0)
+                throw new DomainException("Quantidade deve ser > 0.");
 
-            var product = await _productRepo.GetByIdAsync(request.ProductId, ct);
-            if (product is null)
-                throw new DomainException("Produto não encontrado.");
+            var customer = await _customers.GetByIdAsync(customerId, ct)
+                           ?? throw new DomainException("Cliente inválido.");
 
-            if (product.QuantityAvailable <= 0)
-                throw new DomainException("Produto sem estoque disponível.");
+            var product = await _products.GetByIdAsync(request.ProductId, ct)
+                          ?? throw new DomainException("Produto não encontrado.");
 
             if (product.QuantityAvailable < request.Quantity)
-                throw new DomainException("Quantidade solicitada maior que o estoque disponível.");
+                throw new DomainException("Estoque insuficiente.");
 
-            // Endereço: override explícito ou ViaCEP
-            var enderecoCompleto = !string.IsNullOrWhiteSpace(request.AddressOverride)
-                ? request.AddressOverride!.Trim()
-                : await _viaCep.GetEnderecoByCepAsync(request.Cep, ct);
-
-            if (string.IsNullOrWhiteSpace(enderecoCompleto))
-                throw new DomainException("CEP inválido ou endereço não encontrado.");
-
-            var order = Order.Create(
-                customerId: customerId,
-                productId: product.Id,
-                quantidade: request.Quantity,
-                precoUnitario: product.Preco,
-                cep: request.Cep,
-                endereco: enderecoCompleto
-            );
-
-            product.DebitarEstoque(request.Quantity);
+            // Resolução de endereço
+            var endereco = request.AddressOverride;
+            if (string.IsNullOrWhiteSpace(endereco))
+            {
+                var cepInfo = await _viaCep.BuscarEnderecoAsync(request.Cep, ct);
+                if (cepInfo is null)
+                    throw new DomainException("CEP inválido ou não encontrado.");
+                endereco = $"{cepInfo.Logradouro}, {cepInfo.Bairro}, {cepInfo.Localidade}-{cepInfo.Uf}";
+            }
 
             await _uow.BeginTransactionAsync(ct);
             try
             {
-                await _orderRepo.AddAsync(order, ct);
-                _productRepo.Update(product);
+                // Debita estoque
+                product.DebitInventory(request.Quantity);
+                _products.Update(product);
 
+                // Cria pedido (atenção aos nomes dos parâmetros da entidade Order)
+                var order = Order.Create(
+                    customerId: customer.Id,
+                    productId: product.Id,
+                    quantidade: request.Quantity,
+                    preco: product.Preco,
+                    enderecoEntrega: endereco!
+                );
+
+                await _orders.AddAsync(order, ct);
                 await _uow.SaveChangesAsync(ct);
                 await _uow.CommitAsync(ct);
 

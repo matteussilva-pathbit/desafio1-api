@@ -1,10 +1,10 @@
+using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Interface;
-using Infrastructure.Services;
-
 
 namespace Infrastructure.Services
 {
@@ -12,48 +12,30 @@ namespace Infrastructure.Services
     {
         private readonly HttpClient _http;
 
-        public ViaCepService(HttpClient httpClient)
+        public ViaCepService(HttpClient http)
         {
-            _http = httpClient;
-            if (_http.BaseAddress == null)
-                _http.BaseAddress = new System.Uri("https://viacep.com.br/");
+            _http = http;
+            if (_http.BaseAddress is null)
+                _http.BaseAddress = new Uri("https://viacep.com.br/");
         }
 
-        private sealed class ViaCepResponse
+        public async Task<ViaCepResponse?> BuscarEnderecoAsync(string cep, CancellationToken ct)
         {
-            public string? cep { get; set; }
-            public string? logradouro { get; set; }
-            public string? bairro { get; set; }
-            public string? localidade { get; set; }
-            public string? uf { get; set; }
-            public bool? erro { get; set; }
-        }
+            // manter só os dígitos
+            cep = new string(cep.Where(char.IsDigit).ToArray());
+            if (cep.Length != 8) return null;
 
-        public async Task<string> GetEnderecoByCepAsync(string cep, CancellationToken ct)
-        {
-            cep = (cep ?? string.Empty).Trim().Replace("-", "");
-
-            if (string.IsNullOrWhiteSpace(cep) || cep.Length < 8)
-                return string.Empty;
-
-            using var resp = await _http.GetAsync($"/ws/{cep}/json/", ct);
-            if (!resp.IsSuccessStatusCode) return string.Empty;
+            var resp = await _http.GetAsync($"/ws/{cep}/json/", ct);
+            if (!resp.IsSuccessStatusCode) return null;
 
             var json = await resp.Content.ReadAsStringAsync(ct);
-            var data = JsonSerializer.Deserialize<ViaCepResponse>(json,
+            var dto = JsonSerializer.Deserialize<ViaCepResponse>(json,
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-            if (data == null || data.erro == true) return string.Empty;
+            if (dto is null) return null;
+            if (dto.Erro == true) return null; // CEP inexistente
 
-            var partes = new[]
-            {
-                data.logradouro,
-                data.bairro,
-                (data.localidade, data.uf) is (string c, string u) ? $"{c} - {u}" : null
-            };
-
-            var endereco = string.Join(", ", partes ?? new string?[] { }).Replace("  ", " ").Trim(' ', ',');
-            return string.IsNullOrWhiteSpace(endereco) ? string.Empty : endereco;
+            return dto;
         }
     }
 }

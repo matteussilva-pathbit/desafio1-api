@@ -15,11 +15,13 @@ namespace API.Controllers
     {
         private readonly IProductService _products;
         private readonly IProductRepository _repo;
+        private readonly IUnitOfWork _uow;
 
-        public ProductsController(IProductService products, IProductRepository repo)
+        public ProductsController(IProductService products, IProductRepository repo, IUnitOfWork uow)
         {
             _products = products;
             _repo = repo;
+            _uow = uow;
         }
 
         public sealed class CreateProductRequest
@@ -36,14 +38,18 @@ namespace API.Controllers
 
         public sealed class AdjustInventoryRequest
         {
-            public int Delta { get; set; } // positivo ou negativo
+            public int Delta { get; set; }
         }
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
         {
-            var p = await _products.GetByIdAsync(id, ct);
-            return Ok(p);
+            var p = await _repo.GetByIdAsync(id, ct);
+            if (p is null) return NotFound();
+            return Ok(new
+            {
+                p.Id, p.Nome, p.Preco, p.QuantityAvailable
+            });
         }
 
         [Authorize(Policy = "ADMIN")]
@@ -55,6 +61,7 @@ namespace API.Controllers
 
             var product = Product.Create(req.Nome.Trim(), req.Preco, req.QuantityAvailable);
             await _repo.AddAsync(product, ct);
+            await _uow.SaveChangesAsync(ct); // ✅ garante persistência
 
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, new { id = product.Id });
         }

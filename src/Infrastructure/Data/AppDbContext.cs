@@ -3,56 +3,84 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public sealed class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+        public DbSet<User> Users => Set<User>();
+        public DbSet<Customer> Customers => Set<Customer>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Order> Orders => Set<Order>();
-        public DbSet<Customer> Customers => Set<Customer>();
-        public DbSet<User> Users => Set<User>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>(b =>
+            base.OnModelCreating(modelBuilder);
+
+            // USER
+            modelBuilder.Entity<User>(e =>
             {
-                b.HasKey(x => x.Id);
-                b.Property(x => x.Nome).IsRequired().HasMaxLength(200);
-                b.Property(x => x.Preco).HasColumnType("numeric(18,2)");
-                b.Property(x => x.QuantityAvailable).IsRequired();
+                e.ToTable("Users");
+                e.HasKey(x => x.Id);
+                e.Property(x => x.Email).HasMaxLength(200).IsRequired();
+                e.Property(x => x.UserName).HasMaxLength(100).IsRequired();
+                e.Property(x => x.PasswordHash).HasMaxLength(256).IsRequired();
+                e.Property(x => x.Type).HasMaxLength(20).IsRequired();
+
+                e.HasIndex(x => x.Email).IsUnique();
+                e.HasIndex(x => x.UserName).IsUnique();
             });
 
-            modelBuilder.Entity<Customer>(b =>
+            // CUSTOMER
+            modelBuilder.Entity<Customer>(e =>
             {
-                b.HasKey(x => x.Id);
-                b.Property(x => x.Nome).IsRequired().HasMaxLength(200);
-                b.Property(x => x.Email).IsRequired().HasMaxLength(200);
+                e.ToTable("Customers");
+                e.HasKey(x => x.Id);
+                e.Property(x => x.Nome).HasMaxLength(200).IsRequired();
+                e.Property(x => x.Email).HasMaxLength(200).IsRequired();
+                e.HasIndex(x => x.Email).IsUnique();
             });
 
-            modelBuilder.Entity<Order>(b =>
+            // PRODUCT
+            modelBuilder.Entity<Product>(e =>
             {
-                b.HasKey(x => x.Id);
-                b.Property(x => x.CepEntrega).IsRequired().HasMaxLength(20);
-                b.Property(x => x.EnderecoEntrega).IsRequired().HasMaxLength(400);
-                b.Property(x => x.PrecoUnitario).HasColumnType("numeric(18,2)");
-
-                b.HasOne(x => x.Customer)
-                 .WithMany(c => c.Orders)
-                 .HasForeignKey(x => x.CustomerId)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-                b.HasOne(x => x.Product)
-                 .WithMany()
-                 .HasForeignKey(x => x.ProductId)
-                 .OnDelete(DeleteBehavior.Restrict);
+                e.ToTable("Products");
+                e.HasKey(x => x.Id);
+                e.Property(x => x.Nome).HasMaxLength(200).IsRequired();
+                e.Property(x => x.Preco).HasColumnType("numeric(18,2)").IsRequired();
+                e.Property(x => x.QuantityAvailable).IsRequired();
             });
 
-            modelBuilder.Entity<User>(b =>
+            // ORDER  (mapeado aos nomes ATUAIS da entidade)
+            modelBuilder.Entity<Order>(e =>
             {
-                b.HasKey(x => x.Id);
-                b.Property(x => x.Email).IsRequired().HasMaxLength(200);
-                b.Property(x => x.Username).IsRequired().HasMaxLength(100);
-                b.Property(x => x.PasswordHash).IsRequired();
+                e.ToTable("Orders");
+                e.HasKey(x => x.Id);
+
+                e.Property(x => x.Quantidade).IsRequired();
+                e.Property(x => x.Preco).HasColumnType("numeric(18,2)").IsRequired();
+                e.Property(x => x.EnderecoEntrega).HasMaxLength(500).IsRequired();
+                e.Property(x => x.DataPedido).IsRequired();
+                e.Property(x => x.Status).HasMaxLength(50).IsRequired();
+
+                // Relacionamentos somente por FK, sem navegação na entidade
+                e.HasOne<Customer>()
+                    .WithMany()
+                    .HasForeignKey(x => x.CustomerId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired()
+                    .HasConstraintName("FK_Orders_Customers");
+
+                e.HasOne<Product>()
+                    .WithMany()
+                    .HasForeignKey(x => x.ProductId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired()
+                    .HasConstraintName("FK_Orders_Products");
+
+                // Índices úteis
+                e.HasIndex(x => x.CustomerId);
+                e.HasIndex(x => x.ProductId);
+                e.HasIndex(x => x.DataPedido);
             });
         }
     }

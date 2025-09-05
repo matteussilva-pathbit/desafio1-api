@@ -56,12 +56,6 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[15.0.1, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -174,7 +168,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\Common\\Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

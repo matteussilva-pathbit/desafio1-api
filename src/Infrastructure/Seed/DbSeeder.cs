@@ -1,49 +1,55 @@
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain.Entities;
-using Domain.Enums;
 using Domain.Repositories;
 
 namespace Infrastructure.Seed
 {
-    public sealed class DbSeeder
+    public static class DbSeeder
     {
-        private readonly IUserRepository _users;
-        private readonly ICustomerRepository _customers;
-        private readonly IUnitOfWork _uow;
-
-        public DbSeeder(IUserRepository users, ICustomerRepository customers, IUnitOfWork uow)
+        public static async Task SeedAdminAsync(IUserRepository users, ICustomerRepository customers, IUnitOfWork uow, CancellationToken ct = default)
         {
-            _users = users;
-            _customers = customers;
-            _uow = uow;
-        }
+            // evita admin duplicado
+            var existing = await users.GetByEmailAsync("admin@pathbit.com", ct);
+            if (existing is not null) return;
 
-        public async Task SeedAsync(CancellationToken ct)
-        {
-            using var sha = SHA256.Create();
-            var hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes("admin123"));
-            var hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
-
-            var customer = Customer.Create("Administrador", "admin@pathbit.com");
-            var user = User.Create("admin@pathbit.com", "admin", hash, UserType.Administrador);
-
-            await _uow.BeginTransactionAsync(ct);
+            await uow.BeginTransactionAsync(ct);
             try
             {
-                await _customers.AddAsync(customer, ct);
-                await _users.AddAsync(user, ct);
+                // cria um Customer para vincular se quiser (opcional para ADMIN)
+                var customer = Customer.Create("Administrador", "admin@pathbit.com");
+                await customers.AddAsync(customer, ct);
 
-                await _uow.SaveChangesAsync(ct);
-                await _uow.CommitAsync(ct);
+                // hash fixo para senha "admin123"
+                var hash = SHA256("admin123");
+
+                // ⚠️ nossa entidade User espera string para Type
+                var admin = User.Create(
+                    email: "admin@pathbit.com",
+                    userName: "admin",
+                    passwordHash: hash,
+                    type: "ADMIN",
+                    customerId: customer.Id);
+
+                await users.AddAsync(admin, ct);
+
+                await uow.SaveChangesAsync(ct);
+                await uow.CommitAsync(ct);
             }
             catch
             {
-                await _uow.RollbackAsync(ct);
+                await uow.RollbackAsync(ct);
                 throw;
             }
+        }
+
+        private static string SHA256(string input)
+        {
+            using var sha = System.Security.Cryptography.SHA256.Create();
+            var bytes = sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input));
+            var sb = new System.Text.StringBuilder(bytes.Length * 2);
+            foreach (var b in bytes) sb.Append(b.ToString("x2"));
+            return sb.ToString();
         }
     }
 }

@@ -1,15 +1,14 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Interface;
-using Domain;
+using Common;
 using Domain.Entities;
-using Domain.Enums;
+using Domain.Enums; // se existir o enum UserType
 using Domain.Repositories;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,99 +16,122 @@ namespace Infrastructure.Identity
 {
     public sealed class AuthService : IAuthService
     {
+        private readonly AppDbContext _ctx;
+        private readonly IConfiguration _config;
         private readonly IUserRepository _users;
         private readonly ICustomerRepository _customers;
         private readonly IUnitOfWork _uow;
-        private readonly IConfiguration _config;
 
-        public AuthService(IUserRepository users, ICustomerRepository customers, IUnitOfWork uow, IConfiguration config)
+        public AuthService(
+            AppDbContext ctx,
+            IConfiguration config,
+            IUserRepository users,
+            ICustomerRepository customers,
+            IUnitOfWork uow)
         {
+            _ctx = ctx;
+            _config = config;
             _users = users;
             _customers = customers;
             _uow = uow;
-            _config = config;
         }
 
         public async Task<string> SignUpAsync(string nome, string email, string username, string senha, CancellationToken ct)
         {
-            // hash SHA256
-            var hash = ComputeSha256(senha);
-
-            var customer = Customer.Create(nome, email);
-            var user = User.Create(email, username, hash, UserType.Cliente);
+            // cria Customer + User (CLIENTE)
+            var hash = Sha256(senha);
 
             await _uow.BeginTransactionAsync(ct);
             try
             {
+                var customer = Customer.Create(nome, email);
                 await _customers.AddAsync(customer, ct);
+
+                // ⚠️ nossa entidade User espera string para Type
+                var typeStr = "CLIENTE";
+
+                var user = User.Create(
+                    email: email,
+                    userName: username,
+                    passwordHash: hash,
+                    type: typeStr,
+                    customerId: customer.Id);
+
                 await _users.AddAsync(user, ct);
+
                 await _uow.SaveChangesAsync(ct);
                 await _uow.CommitAsync(ct);
+
+                return IssueJwt(user, customer);
             }
             catch
             {
                 await _uow.RollbackAsync(ct);
                 throw;
             }
-
-            // token JWT com 1h
-            return GenerateJwt(customer.Id, customer.Nome, customer.Email, UserType.Cliente);
         }
 
         public async Task<string> LoginAsync(string usernameOrEmail, string senha, CancellationToken ct)
         {
-            var hash = ComputeSha256(senha);
+            var hash = Sha256(senha);
 
-            // Tenta por email; se quiser, adicione GetByUsernameAsync no repo
-            var user = await _users.GetByEmailAsync(usernameOrEmail, ct);
+            var user = await _ctx.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u =>
+                    (u.Email == usernameOrEmail || u.UserName == usernameOrEmail) &&
+                    u.PasswordHash == hash, ct);
+
             if (user is null)
-                throw new DomainException("Usuário não encontrado.");
-
-            if (!string.Equals(user.PasswordHash, hash, StringComparison.OrdinalIgnoreCase))
                 throw new DomainException("Credenciais inválidas.");
 
-            // Neste modelo simples, fazemos lookup do customer pelo e-mail do user
-            var customer = await _customers.GetByEmailAsync(user.Email, ct);
-            if (customer is null)
-                throw new DomainException("Cliente não encontrado para o usuário.");
+            // carrega customer se houver
+            Customer? customer = null;
+            if (user.CustomerId.HasValue)
+                customer = await _ctx.Customers.AsNoTracking()
+                    .FirstOrDefaultAsync(c => c.Id == user.CustomerId.Value, ct);
 
-            return GenerateJwt(customer.Id, customer.Nome, customer.Email, user.Tipo);
+            return IssueJwt(user, customer);
         }
 
-        private static string ComputeSha256(string input)
+        private string IssueJwt(User user, Customer? customer)
         {
-            using var sha = SHA256.Create();
-            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(input ?? string.Empty));
-            return BitConverter.ToString(bytes).Replace("-", "").ToLowerInvariant();
-        }
-
-        private string GenerateJwt(Guid customerId, string nome, string email, UserType tipo)
-        {
-            var secret = _config["Jwt:Secret"] ?? throw new InvalidOperationException("Jwt:Secret não configurado.");
-            var issuer = _config["Jwt:Issuer"] ?? "desafio-api";
-            var audience = _config["Jwt:Audience"] ?? "desafio-api-clients";
-
+            var secret = _config["Jwt:Secret"] ?? "dev-secret-change-me-please";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, customerId.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim("name", nome),
-                new Claim(ClaimTypes.Role, tipo == UserType.Administrador ? "ADMIN" : "CLIENTE")
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("name", user.UserName),
+                // ⚠️ role precisa ser string
+                new Claim(ClaimTypes.Role, user.Type)
             };
 
+            if (customer is not null)
+            {
+                claims.Add(new Claim("customerId", customer.Id.ToString()));
+                claims.Add(new Claim("customerName", customer.Nome));
+            }
+
             var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience,
+                issuer: "api",
+                audience: "api-clients",
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddHours(1), // 1 hora
-                signingCredentials: creds
-            );
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private static string Sha256(string input)
+        {
+            using var sha = System.Security.Cryptography.SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(input));
+            var sb = new StringBuilder(bytes.Length * 2);
+            foreach (var b in bytes) sb.Append(b.ToString("x2"));
+            return sb.ToString();
         }
     }
 }

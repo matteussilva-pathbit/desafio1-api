@@ -3,11 +3,21 @@ using System.Threading.Tasks;
 
 namespace Application.Interface
 {
+    // DTO simples compatível com a resposta do ViaCEP
+    public sealed class ViaCepResponse
+    {
+        public string? Cep { get; set; }
+        public string? Logradouro { get; set; }
+        public string? Bairro { get; set; }
+        public string? Localidade { get; set; }
+        public string? Uf { get; set; }
+
+        // ViaCEP envia { "erro": true } quando não encontra
+        public bool? Erro { get; set; }
+    }
+
     public interface IViaCepService
     {
-        /// <summary>
-        /// Retorna o endereço completo a partir do CEP. Se inválido, retorna string vazia.
-        /// </summary>
-        Task<string> GetEnderecoByCepAsync(string cep, CancellationToken ct);
+        Task<ViaCepResponse?> BuscarEnderecoAsync(string cep, CancellationToken ct);
     }
 }

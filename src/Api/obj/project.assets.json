@@ -2541,7 +2541,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
-          "AutoMapper": "15.0.1",
           "Common": "1.0.0",
           "Domain": "1.0.0"
         },
@@ -2565,6 +2564,9 @@
       "Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Common": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Domain.dll": {}
         },
@@ -6880,9 +6882,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\Api.csproj",
-      "projectName": "Api",
-      "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\Api.csproj",
+      "projectUniqueName": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\API.csproj",
+      "projectName": "API",
+      "projectPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\API.csproj",
       "packagesPath": "C:\\Users\\OBERDAN\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\OBERDAN\\Desktop\\DESAFIO1\\src\\API\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,14 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Enums;
 using Domain.Repositories;
-using System.Text;
+using Infrastructure.Seed;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("dev/seed-admin")] // rota temporária de dev; remova em produção
+    [Route("dev/seed-admin")]
     public sealed class AdminSeedController : ControllerBase
     {
         private readonly IUserRepository _users;
@@ -22,36 +21,21 @@ namespace API.Controllers
             _uow = uow;
         }
 
+        /// <summary>
+        /// Cria (ou garante) um usuário ADMIN padrão para testes.
+        /// email: admin@pathbit.com | senha: admin123
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Seed(CancellationToken ct)
         {
-            var email = "admin@pathbit.com";
-            var username = "admin";
-            var senha = "admin123";
-
-            // Sem Create(); usa método estático para evitar ambiguidade
-            var hashBytes = System.Security.Cryptography.SHA256.HashData(Encoding.UTF8.GetBytes(senha));
-            var hash = System.Convert.ToHexString(hashBytes).ToLowerInvariant();
-
-            // ⚠️ Use os tipos de domínio totalmente qualificados para não colidir com ControllerBase.User
-            var customer = Domain.Entities.Customer.Create("Administrador", email);
-            var user = Domain.Entities.User.Create(email, username, hash, UserType.Administrador);
-
-            await _uow.BeginTransactionAsync(ct);
-            try
+            await DbSeeder.SeedAdminAsync(_users, _customers, _uow, ct);
+            return Ok(new
             {
-                await _customers.AddAsync(customer, ct);
-                await _users.AddAsync(user, ct);
-                await _uow.SaveChangesAsync(ct);
-                await _uow.CommitAsync(ct);
-            }
-            catch
-            {
-                await _uow.RollbackAsync(ct);
-                throw;
-            }
-
-            return Ok(new { email, username, senha });
+                email = "admin@pathbit.com",
+                username = "admin",
+                senha = "admin123",
+                dica = "Use POST /api/auth/login com usernameOrEmail=admin@pathbit.com e senha=admin123"
+            });
         }
     }
 }
