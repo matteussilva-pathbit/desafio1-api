@@ -1,19 +1,41 @@
+name: desafio-pathbit
+
 services:
   db:
     image: postgres:16
     container_name: pg-desafio
+    restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: desafio1
+      POSTGRES_DB: desafio_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d desafio1"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d desafio_db || exit 1"]
       interval: 5s
       timeout: 3s
-      retries: 10
+      retries: 20
+
+  api:
+    build:
+      context: .                  # raiz do repo
+      dockerfile: ./src/Api/Dockerfile
+    container_name: api-desafio
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      Jwt__Secret: "CHANGE-ME-TO-A-VERY-LONG-64+CHARS-SECRET-STRING-1234567890-ABCDEF"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
+      ConnectionStrings__Default: "Host=db;Port=5432;Database=desafio_db;Username=postgres;Password=postgres"
+    ports:
+      - "5297:8080"
+    volumes:
+      - ./logs:/app/logs
 
 volumes:
   pgdata:
