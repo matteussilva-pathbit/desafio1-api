@@ -1,53 +1,64 @@
-using System;
-using System.IdentityModel.Tokens.Jwt;
+// src/API/Controllers/OrdersController.cs
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Services; // IOrderService
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Application.Services;   // IOrderService, CreateOrderRequest
+using Common;                 // DomainException
 
-namespace API.Controllers
+namespace API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+[Authorize(Policy = "CLIENTE")]
+public class OrdersController : ControllerBase
 {
-    [ApiController]
-    [Route("api/orders")]
-    public sealed class OrdersController : ControllerBase
+    private readonly IOrderService _orders;
+
+    public OrdersController(IOrderService orders) => _orders = orders;
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateOrderRequestDto dto, CancellationToken ct)
     {
-        private readonly IOrderService _orders;
+        // Extrai customerId do token (aceita variações)
+        string? rawCustomerId =
+            User.FindFirst("customerId")?.Value ??
+            User.FindFirst("CustomerId")?.Value ??
+            User.FindFirst("customerid")?.Value;
 
-        public OrdersController(IOrderService orders) => _orders = orders;
+        if (string.IsNullOrWhiteSpace(rawCustomerId) || !Guid.TryParse(rawCustomerId, out var customerId) || customerId == Guid.Empty)
+            return Unauthorized("Token sem customerId válido.");
 
-        public sealed class CreateOrderRequestDto
+        var req = new CreateOrderRequest
         {
-            public Guid ProductId { get; set; }
-            public int Quantity { get; set; }
-            public string Cep { get; set; } = default!;
-            public string? AddressOverride { get; set; }
-        }
+            ProductId = dto.ProductId,
+            Quantity  = dto.Quantity,
+            Cep       = dto.Cep?.Replace("-", "").Trim(),
+            AddressOverride = dto.AddressOverride
+        };
 
-        [Authorize(Policy = "CLIENTE")]
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateOrderRequestDto dto, CancellationToken ct)
+        try
         {
-            var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
-                   ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (!Guid.TryParse(sub, out var customerId) || customerId == Guid.Empty)
-                return Unauthorized("Token sem 'sub' válido.");
-
-            var id = await _orders.CreateOrderAsync(new Application.Services.CreateOrderRequest
-            {
-                ProductId = dto.ProductId,
-                Quantity = dto.Quantity,
-                Cep = dto.Cep,
-                AddressOverride = dto.AddressOverride
-            }, customerId, ct);
-
-            return CreatedAtAction(nameof(GetById), new { id }, new { id });
+            var orderId = await _orders.CreateOrderAsync(req, customerId, ct);
+            // Retorna 201 com Location sem depender de GetById
+            var location = Url.Content($"~/api/orders/{orderId}");
+            return Created(location ?? $"/api/orders/{orderId}", new { id = orderId });
         }
-
-        [Authorize]
-        [HttpGet("{id:guid}")]
-        public IActionResult GetById(Guid id) => Ok(new { id });
+        catch (DomainException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
     }
+}
+
+// DTO do controller
+public sealed class CreateOrderRequestDto
+{
+    public Guid   ProductId        { get; set; }
+    public int    Quantity         { get; set; }
+    public string? Cep             { get; set; }
+    public string? AddressOverride { get; set; }
 }
