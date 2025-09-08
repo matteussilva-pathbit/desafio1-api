@@ -1,49 +1,84 @@
 using System.Text;
+using System.Text.Encodings.Web;
 using Application.Interface;
 using Application.Services;
+using API.Auth; // BasicAuthenticationHandler
 using Domain.Repositories;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// -------------------------------------------
+// Serilog (logs em ./logs/application.log)
+// -------------------------------------------
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .WriteTo.File(
+        "./logs/application.log",
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 7)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+// -------------------------------------------
 // DbContext
+// -------------------------------------------
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
+// -------------------------------------------
 // Repositórios + UoW
+// -------------------------------------------
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// -------------------------------------------
 // Services de aplicação
+// -------------------------------------------
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
+// -------------------------------------------
 // Auth service
+// -------------------------------------------
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// -------------------------------------------
 // ViaCEP
+// -------------------------------------------
 builder.Services.AddSingleton<IViaCepService>(sp =>
 {
     var http = new HttpClient { BaseAddress = new Uri("https://viacep.com.br/") };
     return new ViaCepService(http);
 });
 
-// JWT
+// -------------------------------------------
+// Autenticação: JWT + Basic
+// -------------------------------------------
 var secret = builder.Configuration["Jwt:Secret"] ?? "dev-secret-change-me-please";
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services
+    .AddAuthentication(options =>
+    {
+        // JWT como esquema padrão
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(o =>
     {
         o.TokenValidationParameters = new TokenValidationParameters
@@ -54,7 +89,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false,
             ClockSkew = TimeSpan.Zero
         };
-    });
+    })
+    // habilita também Basic (para atender ao requisito do desafio)
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
 
 builder.Services.AddAuthorization(o =>
 {
@@ -62,7 +99,9 @@ builder.Services.AddAuthorization(o =>
     o.AddPolicy("CLIENTE", p => p.RequireRole("CLIENTE"));
 });
 
-// Swagger + Controllers
+// -------------------------------------------
+// Controllers + Swagger (JWT + Basic)
+// -------------------------------------------
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -72,10 +111,10 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Desafio API",
         Version = "v1",
-        Description = "API de clientes, produtos e pedidos com JWT"
+        Description = "API de clientes, produtos e pedidos com JWT e Basic Auth"
     });
 
-    // ✅ Definição do esquema Bearer para habilitar o botão Authorize
+    // JWT Bearer
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -83,20 +122,33 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Insira: Bearer {seu_token_jwt}"
+        Description = "Cole APENAS o token (sem 'Bearer ')."
     });
 
-    // ✅ Requisito global: aplica o esquema em todas as operações
+    // Basic
+    c.AddSecurityDefinition("Basic", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "basic",
+        In = ParameterLocation.Header,
+        Description = "Basic Auth (username:senha em Base64)."
+    });
+
+    // aplicar globalmente (ambos aceitos)
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        },
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Basic" }
             },
             Array.Empty<string>()
         }
@@ -105,6 +157,9 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// -------------------------------------------
+// Pipeline
+// -------------------------------------------
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -115,6 +170,9 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// logs de requisição no Serilog
+app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
@@ -122,4 +180,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+// encerra com flush do Serilog
+try
+{
+    app.Run();
+}
+finally
+{
+    Log.CloseAndFlush();
+}

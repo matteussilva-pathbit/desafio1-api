@@ -8,6 +8,11 @@
     <UserSecretsId>7e5999fb-303f-41d5-9e7c-c9a91a040487</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup>
+  <UseAppHost>false</UseAppHost>
+</PropertyGroup>
+
+
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
