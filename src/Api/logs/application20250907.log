@@ -1,0 +1,40 @@
+2025-09-07 15:24:27.169 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:24:27.242 -03:00 [INF] Now listening on: http://localhost:5297
+2025-09-07 15:24:27.243 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:24:27.243 -03:00 [INF] Hosting environment: Development
+2025-09-07 15:24:27.243 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API
+2025-09-07 15:25:14.129 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:25:14.210 -03:00 [INF] Now listening on: http://localhost:5297
+2025-09-07 15:25:14.211 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:25:14.211 -03:00 [INF] Hosting environment: Development
+2025-09-07 15:25:14.211 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API
+2025-09-07 15:27:20.049 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:27:20.131 -03:00 [INF] Now listening on: http://localhost:5297
+2025-09-07 15:27:20.132 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:27:20.132 -03:00 [INF] Hosting environment: Development
+2025-09-07 15:27:20.132 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API
+2025-09-07 15:29:55.187 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:29:55.288 -03:00 [INF] Now listening on: http://localhost:5297
+2025-09-07 15:29:55.290 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:29:55.290 -03:00 [INF] Hosting environment: Development
+2025-09-07 15:29:55.290 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API
+2025-09-07 15:49:44.790 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:49:44.854 -03:00 [INF] Now listening on: http://localhost:5000
+2025-09-07 15:49:44.855 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:49:44.855 -03:00 [INF] Hosting environment: Production
+2025-09-07 15:49:44.855 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API
+2025-09-07 15:50:46.678 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:50:46.764 -03:00 [INF] Now listening on: http://localhost:5000
+2025-09-07 15:50:46.765 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:50:46.765 -03:00 [INF] Hosting environment: Production
+2025-09-07 15:50:46.766 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API
+2025-09-07 15:52:18.503 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:52:18.571 -03:00 [INF] Now listening on: http://localhost:5000
+2025-09-07 15:52:18.572 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:52:18.572 -03:00 [INF] Hosting environment: Production
+2025-09-07 15:52:18.572 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API
+2025-09-07 15:55:01.142 -03:00 [INF] User profile is available. Using 'C:\Users\OBERDAN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-07 15:55:01.246 -03:00 [INF] Now listening on: http://localhost:5000
+2025-09-07 15:55:01.248 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-07 15:55:01.248 -03:00 [INF] Hosting environment: Production
+2025-09-07 15:55:01.249 -03:00 [INF] Content root path: C:\Users\OBERDAN\Desktop\DESAFIO1\src\API

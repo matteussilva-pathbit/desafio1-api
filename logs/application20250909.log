@@ -1,0 +1,261 @@
+2025-09-09 18:49:53.094 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-09-09 18:49:53.122 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-09-09 18:49:53.133 +00:00 [INF] Creating key {d8ffee0a-bcdf-4d65-8dba-f2d7eda25f45} with creation date 2025-09-09 18:49:53Z, activation date 2025-09-09 18:49:53Z, and expiration date 2025-12-08 18:49:53Z.
+2025-09-09 18:49:53.143 +00:00 [WRN] No XML encryptor configured. Key {d8ffee0a-bcdf-4d65-8dba-f2d7eda25f45} may be persisted to storage in unencrypted form.
+2025-09-09 18:49:53.147 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-d8ffee0a-bcdf-4d65-8dba-f2d7eda25f45.xml'.
+2025-09-09 18:49:53.155 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:8080'.
+2025-09-09 18:49:53.192 +00:00 [INF] Now listening on: http://0.0.0.0:8080
+2025-09-09 18:49:53.192 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-09 18:49:53.193 +00:00 [INF] Hosting environment: Development
+2025-09-09 18:49:53.193 +00:00 [INF] Content root path: /app
+2025-09-09 18:50:02.954 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5297/swagger/v1/swagger.json - null null
+2025-09-09 18:50:03.079 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5297/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 127.4454ms
+2025-09-09 18:50:08.415 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/dev/seed-admin - null 0
+2025-09-09 18:50:08.424 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-09-09 18:50:08.438 +00:00 [INF] Executing endpoint 'API.Controllers.AdminSeedController.Seed (Api)'
+2025-09-09 18:50:08.451 +00:00 [INF] Route matched with {action = "Seed", controller = "AdminSeed"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Seed(System.Threading.CancellationToken) on controller API.Controllers.AdminSeedController (Api).
+2025-09-09 18:50:08.846 +00:00 [WRN] The foreign key property 'Order.CustomerId1' was created in shadow state because a conflicting property with the simple name 'CustomerId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-09-09 18:50:09.297 +00:00 [INF] Executed DbCommand (36ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 1
+2025-09-09 18:50:09.351 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`4[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:50:09.362 +00:00 [INF] Executed action API.Controllers.AdminSeedController.Seed (Api) in 908.8555ms
+2025-09-09 18:50:09.363 +00:00 [INF] Executed endpoint 'API.Controllers.AdminSeedController.Seed (Api)'
+2025-09-09 18:50:09.365 +00:00 [INF] HTTP POST /dev/seed-admin responded 200 in 943.9302 ms
+2025-09-09 18:50:09.374 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/dev/seed-admin - 200 null application/json; charset=utf-8 959.6156ms
+2025-09-09 18:50:26.483 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 55
+2025-09-09 18:50:26.486 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:50:26.493 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-09 18:50:26.557 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-09 18:50:26.570 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__user_CustomerId_Value_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__user_CustomerId_Value_0
+LIMIT 1
+2025-09-09 18:50:26.583 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:50:26.585 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 91.2004ms
+2025-09-09 18:50:26.585 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:50:26.585 +00:00 [INF] HTTP POST /api/auth/login responded 200 in 100.2862 ms
+2025-09-09 18:50:26.586 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 200 null application/json; charset=utf-8 103.4973ms
+2025-09-09 18:50:35.671 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 57
+2025-09-09 18:50:35.674 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:50:35.674 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-09 18:50:35.687 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-09 18:50:35.688 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 13.8981ms
+2025-09-09 18:50:35.689 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:50:35.689 +00:00 [ERR] HTTP POST /api/auth/login responded 500 in 16.7659 ms
+Common.DomainException: Credenciais inválidas.
+   at Infrastructure.Identity.AuthService.LoginAsync(String usernameOrEmail, String senha, CancellationToken ct) in /src/src/Infrastructure/Identity/AuthService.cs:line 85
+   at API.Controllers.AuthController.Login(LoginRequest req, CancellationToken ct) in /src/src/Api/Controllers/AuthController.cs:line 42
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-09-09 18:50:35.700 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+Common.DomainException: Credenciais inválidas.
+   at Infrastructure.Identity.AuthService.LoginAsync(String usernameOrEmail, String senha, CancellationToken ct) in /src/src/Infrastructure/Identity/AuthService.cs:line 85
+   at API.Controllers.AuthController.Login(LoginRequest req, CancellationToken ct) in /src/src/Api/Controllers/AuthController.cs:line 42
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-09-09 18:50:35.703 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 500 null text/plain; charset=utf-8 32.1112ms
+2025-09-09 18:50:47.666 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 55
+2025-09-09 18:50:47.667 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:50:47.668 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-09 18:50:47.674 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-09 18:50:47.677 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__user_CustomerId_Value_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__user_CustomerId_Value_0
+LIMIT 1
+2025-09-09 18:50:47.680 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:50:47.681 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 12.9471ms
+2025-09-09 18:50:47.681 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:50:47.681 +00:00 [INF] HTTP POST /api/auth/login responded 200 in 14.2816 ms
+2025-09-09 18:50:47.682 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 200 null application/json; charset=utf-8 15.3106ms
+2025-09-09 18:51:52.452 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 66
+2025-09-09 18:51:52.477 +00:00 [INF] Executing endpoint 'API.Controllers.ProductsController.Create (Api)'
+2025-09-09 18:51:52.480 +00:00 [INF] Route matched with {action = "Create", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(CreateProductRequest, System.Threading.CancellationToken) on controller API.Controllers.ProductsController (Api).
+2025-09-09 18:51:52.569 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Products" ("Id", "Nome", "Preco", "QuantityAvailable")
+VALUES (@p0, @p1, @p2, @p3);
+2025-09-09 18:51:52.576 +00:00 [INF] Executing CreatedAtActionResult, writing value of type '<>f__AnonymousType3`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:51:52.589 +00:00 [INF] Executed action API.Controllers.ProductsController.Create (Api) in 107.8007ms
+2025-09-09 18:51:52.589 +00:00 [INF] Executed endpoint 'API.Controllers.ProductsController.Create (Api)'
+2025-09-09 18:51:52.589 +00:00 [INF] HTTP POST /api/products responded 201 in 136.8682 ms
+2025-09-09 18:51:52.590 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 201 null application/json; charset=utf-8 138.2361ms
+2025-09-09 18:52:27.261 +00:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5297/api/products/f38b8f54-0972-4dc9-96de-473926a2e340/price - application/json 21
+2025-09-09 18:52:27.266 +00:00 [INF] Executing endpoint 'API.Controllers.ProductsController.UpdatePrice (Api)'
+2025-09-09 18:52:27.275 +00:00 [INF] Route matched with {action = "UpdatePrice", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdatePrice(System.Guid, UpdatePriceRequest, System.Threading.CancellationToken) on controller API.Controllers.ProductsController (Api).
+2025-09-09 18:52:27.287 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT p."Id", p."Nome", p."Preco", p."QuantityAvailable"
+FROM "Products" AS p
+WHERE p."Id" = @__id_0
+LIMIT 1
+2025-09-09 18:52:27.300 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?', @p1='?' (DbType = Decimal), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Products" SET "Nome" = @p0, "Preco" = @p1, "QuantityAvailable" = @p2
+WHERE "Id" = @p3;
+2025-09-09 18:52:27.304 +00:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2025-09-09 18:52:27.304 +00:00 [INF] Executed action API.Controllers.ProductsController.UpdatePrice (Api) in 28.9736ms
+2025-09-09 18:52:27.304 +00:00 [INF] Executed endpoint 'API.Controllers.ProductsController.UpdatePrice (Api)'
+2025-09-09 18:52:27.305 +00:00 [INF] HTTP PUT /api/products/f38b8f54-0972-4dc9-96de-473926a2e340/price responded 204 in 41.8948 ms
+2025-09-09 18:52:27.305 +00:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5297/api/products/f38b8f54-0972-4dc9-96de-473926a2e340/price - 204 null null 44.1768ms
+2025-09-09 18:52:41.282 +00:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5297/api/products/f38b8f54-0972-4dc9-96de-473926a2e340/inventory - application/json 16
+2025-09-09 18:52:41.285 +00:00 [INF] Executing endpoint 'API.Controllers.ProductsController.AdjustInventory (Api)'
+2025-09-09 18:52:41.287 +00:00 [INF] Route matched with {action = "AdjustInventory", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AdjustInventory(System.Guid, AdjustInventoryRequest, System.Threading.CancellationToken) on controller API.Controllers.ProductsController (Api).
+2025-09-09 18:52:41.293 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT p."Id", p."Nome", p."Preco", p."QuantityAvailable"
+FROM "Products" AS p
+WHERE p."Id" = @__id_0
+LIMIT 1
+2025-09-09 18:52:41.298 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?', @p1='?' (DbType = Decimal), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Products" SET "Nome" = @p0, "Preco" = @p1, "QuantityAvailable" = @p2
+WHERE "Id" = @p3;
+2025-09-09 18:52:41.299 +00:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2025-09-09 18:52:41.299 +00:00 [INF] Executed action API.Controllers.ProductsController.AdjustInventory (Api) in 11.2966ms
+2025-09-09 18:52:41.299 +00:00 [INF] Executed endpoint 'API.Controllers.ProductsController.AdjustInventory (Api)'
+2025-09-09 18:52:41.300 +00:00 [INF] HTTP PUT /api/products/f38b8f54-0972-4dc9-96de-473926a2e340/inventory responded 204 in 16.1102 ms
+2025-09-09 18:52:41.300 +00:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5297/api/products/f38b8f54-0972-4dc9-96de-473926a2e340/inventory - 204 null null 17.7357ms
+2025-09-09 18:53:55.042 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/signup - application/json 110
+2025-09-09 18:53:55.043 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.SignUp (Api)'
+2025-09-09 18:53:55.047 +00:00 [INF] Route matched with {action = "SignUp", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SignUp(SignUpRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-09 18:53:55.088 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?', @p3='?' (DbType = Guid), @p4='?' (DbType = Guid), @p5='?', @p6='?', @p7='?', @p8='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Customers" ("Id", "Email", "Nome")
+VALUES (@p0, @p1, @p2);
+INSERT INTO "Users" ("Id", "CustomerId", "Email", "PasswordHash", "Type", "UserName")
+VALUES (@p3, @p4, @p5, @p6, @p7, @p8);
+2025-09-09 18:53:55.100 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:53:55.100 +00:00 [INF] Executed action API.Controllers.AuthController.SignUp (Api) in 52.7676ms
+2025-09-09 18:53:55.100 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.SignUp (Api)'
+2025-09-09 18:53:55.101 +00:00 [INF] HTTP POST /api/auth/signup responded 200 in 58.0997 ms
+2025-09-09 18:53:55.101 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/signup - 200 null application/json; charset=utf-8 59.2143ms
+2025-09-09 18:54:42.885 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 62
+2025-09-09 18:54:42.886 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:54:42.886 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-09 18:54:42.889 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-09 18:54:42.891 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_CustomerId_Value_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__user_CustomerId_Value_0
+LIMIT 1
+2025-09-09 18:54:42.892 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:54:42.893 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 6.4368ms
+2025-09-09 18:54:42.893 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:54:42.894 +00:00 [INF] HTTP POST /api/auth/login responded 200 in 8.0687 ms
+2025-09-09 18:54:42.894 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 200 null application/json; charset=utf-8 8.8825ms
+2025-09-09 18:55:48.023 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/Orders - application/json 133
+2025-09-09 18:55:48.025 +00:00 [INF] Executing endpoint 'API.Controllers.OrdersController.Create (Api)'
+2025-09-09 18:55:48.028 +00:00 [INF] Route matched with {action = "Create", controller = "Orders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(API.Controllers.CreateOrderRequestDto, System.Threading.CancellationToken) on controller API.Controllers.OrdersController (Api).
+2025-09-09 18:55:48.049 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__id_0
+LIMIT 1
+2025-09-09 18:55:48.051 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT p."Id", p."Nome", p."Preco", p."QuantityAvailable"
+FROM "Products" AS p
+WHERE p."Id" = @__id_0
+LIMIT 1
+2025-09-09 18:55:48.082 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Guid), @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Decimal), @p6='?' (DbType = Guid), @p7='?' (DbType = Int32), @p8='?', @p12='?' (DbType = Guid), @p9='?', @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Orders" ("Id", "CustomerId", "CustomerId1", "DataPedido", "EnderecoEntrega", "Preco", "ProductId", "Quantidade", "Status")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+UPDATE "Products" SET "Nome" = @p9, "Preco" = @p10, "QuantityAvailable" = @p11
+WHERE "Id" = @p12;
+2025-09-09 18:55:48.086 +00:00 [INF] Executing CreatedResult, writing value of type '<>f__AnonymousType3`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:55:48.086 +00:00 [INF] Executed action API.Controllers.OrdersController.Create (Api) in 58.4542ms
+2025-09-09 18:55:48.087 +00:00 [INF] Executed endpoint 'API.Controllers.OrdersController.Create (Api)'
+2025-09-09 18:55:48.087 +00:00 [INF] HTTP POST /api/Orders responded 201 in 63.2190 ms
+2025-09-09 18:55:48.087 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/Orders - 201 null application/json; charset=utf-8 64.0265ms
+2025-09-09 18:56:59.404 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 66
+2025-09-09 18:56:59.405 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (ADMIN)
+2025-09-09 18:56:59.407 +00:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2025-09-09 18:56:59.407 +00:00 [INF] HTTP POST /api/products responded 403 in 2.4087 ms
+2025-09-09 18:56:59.407 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 403 0 null 3.1558ms
+2025-09-09 18:57:14.552 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 66
+2025-09-09 18:57:14.558 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (ADMIN)
+2025-09-09 18:57:14.559 +00:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2025-09-09 18:57:14.559 +00:00 [INF] HTTP POST /api/products responded 403 in 2.1511 ms
+2025-09-09 18:57:14.560 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 403 0 null 7.4395ms
+2025-09-09 18:57:15.331 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 66
+2025-09-09 18:57:15.332 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (ADMIN)
+2025-09-09 18:57:15.332 +00:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2025-09-09 18:57:15.333 +00:00 [INF] HTTP POST /api/products responded 403 in 0.8877 ms
+2025-09-09 18:57:15.333 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 403 0 null 1.6271ms
+2025-09-09 18:57:16.175 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 66
+2025-09-09 18:57:16.176 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (ADMIN)
+2025-09-09 18:57:16.176 +00:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2025-09-09 18:57:16.177 +00:00 [INF] HTTP POST /api/products responded 403 in 0.8467 ms
+2025-09-09 18:57:16.177 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 403 0 null 1.6418ms
+2025-09-09 18:57:50.068 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 55
+2025-09-09 18:57:50.069 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:57:50.069 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-09 18:57:50.074 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-09 18:57:50.076 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__user_CustomerId_Value_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__user_CustomerId_Value_0
+LIMIT 1
+2025-09-09 18:57:50.077 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:57:50.077 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 7.7664ms
+2025-09-09 18:57:50.077 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-09 18:57:50.078 +00:00 [INF] HTTP POST /api/auth/login responded 200 in 9.1174 ms
+2025-09-09 18:57:50.078 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 200 null application/json; charset=utf-8 10.0646ms
+2025-09-09 18:58:10.269 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 66
+2025-09-09 18:58:10.270 +00:00 [INF] Executing endpoint 'API.Controllers.ProductsController.Create (Api)'
+2025-09-09 18:58:10.270 +00:00 [INF] Route matched with {action = "Create", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(CreateProductRequest, System.Threading.CancellationToken) on controller API.Controllers.ProductsController (Api).
+2025-09-09 18:58:10.279 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Products" ("Id", "Nome", "Preco", "QuantityAvailable")
+VALUES (@p0, @p1, @p2, @p3);
+2025-09-09 18:58:10.280 +00:00 [INF] Executing CreatedAtActionResult, writing value of type '<>f__AnonymousType3`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-09 18:58:10.281 +00:00 [INF] Executed action API.Controllers.ProductsController.Create (Api) in 10.2951ms
+2025-09-09 18:58:10.281 +00:00 [INF] Executed endpoint 'API.Controllers.ProductsController.Create (Api)'
+2025-09-09 18:58:10.281 +00:00 [INF] HTTP POST /api/products responded 201 in 12.0682 ms
+2025-09-09 18:58:10.282 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 201 null application/json; charset=utf-8 13.0677ms

@@ -1,0 +1,1978 @@
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\Services\CustomerService.cs
+FN:31,System.Threading.Tasks.Task`1<System.Collections.Generic.IReadOnlyList`1<Domain.Entities.Customer>> Application.Services.CustomerService::GetAllAsync(System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<System.Collections.Generic.IReadOnlyList`1<Domain.Entities.Customer>> Application.Services.CustomerService::GetAllAsync(System.Threading.CancellationToken)
+DA:32,0
+FN:59,System.Threading.Tasks.Task`1<Domain.Entities.Customer> Application.Services.CustomerService::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<Domain.Entities.Customer> Application.Services.CustomerService::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+DA:60,0
+FN:24,System.Void Application.Services.CustomerService::.ctor(Domain.Repositories.ICustomerRepository,Domain.Repositories.IUnitOfWork)
+FNDA:0,System.Void Application.Services.CustomerService::.ctor(Domain.Repositories.ICustomerRepository,Domain.Repositories.IUnitOfWork)
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+FN:34,System.Void Application.Services.CustomerService/<CreateAsync>d__4::MoveNext()
+FNDA:0,System.Void Application.Services.CustomerService/<CreateAsync>d__4::MoveNext()
+DA:35,0
+DA:36,0
+DA:37,0
+DA:39,0
+DA:40,0
+DA:42,0
+DA:44,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:57,0
+BRDA:36,73,0,0
+BRDA:36,73,1,0
+BRDA:37,99,0,0
+BRDA:37,99,1,0
+BRDA:40,276,0,0
+BRDA:40,276,1,0
+LF:24
+LH:0
+BRF:6
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\Services\OrderService.cs
+FN:17,System.Guid Application.Services.CreateOrderRequest::get_ProductId()
+FNDA:0,System.Guid Application.Services.CreateOrderRequest::get_ProductId()
+DA:18,0
+FN:18,System.Int32 Application.Services.CreateOrderRequest::get_Quantity()
+FNDA:0,System.Int32 Application.Services.CreateOrderRequest::get_Quantity()
+DA:19,0
+FN:19,System.String Application.Services.CreateOrderRequest::get_Cep()
+FNDA:0,System.String Application.Services.CreateOrderRequest::get_Cep()
+DA:20,0
+FN:20,System.String Application.Services.CreateOrderRequest::get_AddressOverride()
+FNDA:0,System.String Application.Services.CreateOrderRequest::get_AddressOverride()
+DA:21,0
+FN:31,System.Void Application.Services.OrderService::.ctor(Domain.Repositories.IOrderRepository,Domain.Repositories.IProductRepository,Domain.Repositories.ICustomerRepository,Domain.Repositories.IUnitOfWork,Application.Interface.IViaCepService)
+FNDA:0,System.Void Application.Services.OrderService::.ctor(Domain.Repositories.IOrderRepository,Domain.Repositories.IProductRepository,Domain.Repositories.ICustomerRepository,Domain.Repositories.IUnitOfWork,Application.Interface.IViaCepService)
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+FN:46,System.Void Application.Services.OrderService/<CreateOrderAsync>d__6::MoveNext()
+FNDA:0,System.Void Application.Services.OrderService/<CreateOrderAsync>d__6::MoveNext()
+DA:47,0
+DA:48,0
+DA:49,0
+DA:51,0
+DA:52,0
+DA:54,0
+DA:55,0
+DA:57,0
+DA:58,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:70,0
+DA:72,0
+DA:74,0
+DA:75,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:90,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:97,0
+BRDA:48,97,0,0
+BRDA:48,97,1,0
+BRDA:51,242,0,0
+BRDA:51,242,1,0
+BRDA:54,408,0,0
+BRDA:54,408,1,0
+BRDA:57,462,0,0
+BRDA:57,462,1,0
+BRDA:62,507,0,0
+BRDA:65,677,0,0
+BRDA:65,677,1,0
+BRDA:62,507,1,0
+LF:54
+LH:0
+BRF:12
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\Services\ProductService.cs
+FN:27,System.Threading.Tasks.Task`1<Domain.Entities.Product> Application.Services.ProductService::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<Domain.Entities.Product> Application.Services.ProductService::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+DA:28,0
+FN:20,System.Void Application.Services.ProductService::.ctor(Domain.Repositories.IProductRepository,Domain.Repositories.IUnitOfWork)
+FNDA:0,System.Void Application.Services.ProductService::.ctor(Domain.Repositories.IProductRepository,Domain.Repositories.IUnitOfWork)
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+FN:42,System.Void Application.Services.ProductService/<AdjustInventoryAsync>d__5::MoveNext()
+FNDA:0,System.Void Application.Services.ProductService/<AdjustInventoryAsync>d__5::MoveNext()
+DA:43,0
+DA:44,0
+DA:45,0
+DA:47,0
+DA:49,0
+DA:50,0
+DA:52,0
+DA:54,0
+DA:55,0
+DA:56,0
+BRDA:45,179,0,0
+BRDA:45,179,1,0
+BRDA:47,205,0,0
+BRDA:47,205,1,0
+BRDA:49,225,0,0
+BRDA:49,225,1,0
+FN:30,System.Void Application.Services.ProductService/<UpdatePriceAsync>d__4::MoveNext()
+FNDA:0,System.Void Application.Services.ProductService/<UpdatePriceAsync>d__4::MoveNext()
+DA:31,0
+DA:32,0
+DA:34,0
+DA:35,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+BRDA:32,44,0,0
+BRDA:32,44,1,0
+BRDA:35,212,0,0
+BRDA:35,212,1,0
+LF:24
+LH:0
+BRF:10
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\Models\CreateOrderRequest.cs
+FN:4,System.Guid Application.Models.CreateOrderRequest::get_ProductId()
+FNDA:0,System.Guid Application.Models.CreateOrderRequest::get_ProductId()
+DA:5,0
+FN:5,System.Int32 Application.Models.CreateOrderRequest::get_Quantity()
+FNDA:0,System.Int32 Application.Models.CreateOrderRequest::get_Quantity()
+DA:6,0
+FN:6,System.String Application.Models.CreateOrderRequest::get_Cep()
+FNDA:0,System.String Application.Models.CreateOrderRequest::get_Cep()
+DA:7,0
+FN:7,System.String Application.Models.CreateOrderRequest::get_AddressOverride()
+FNDA:0,System.String Application.Models.CreateOrderRequest::get_AddressOverride()
+DA:8,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\Models\ViaCepResponse.cs
+FN:4,System.String Application.Models.ViaCepResponse::get_Cep()
+FNDA:0,System.String Application.Models.ViaCepResponse::get_Cep()
+DA:5,0
+FN:5,System.String Application.Models.ViaCepResponse::get_Logradouro()
+FNDA:0,System.String Application.Models.ViaCepResponse::get_Logradouro()
+DA:6,0
+FN:6,System.String Application.Models.ViaCepResponse::get_Bairro()
+FNDA:0,System.String Application.Models.ViaCepResponse::get_Bairro()
+DA:7,0
+FN:7,System.String Application.Models.ViaCepResponse::get_Localidade()
+FNDA:0,System.String Application.Models.ViaCepResponse::get_Localidade()
+DA:8,0
+FN:8,System.String Application.Models.ViaCepResponse::get_Uf()
+FNDA:0,System.String Application.Models.ViaCepResponse::get_Uf()
+DA:9,0
+FN:2,System.Void Application.Models.ViaCepResponse::.ctor(Application.Models.ViaCepResponse)
+FNDA:0,System.Void Application.Models.ViaCepResponse::.ctor(Application.Models.ViaCepResponse)
+DA:3,0
+LF:6
+LH:0
+BRF:0
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Customers\ClienteDto.cs
+FN:5,System.String Application.Clientes.ClienteDto::get_Nome()
+FNDA:0,System.String Application.Clientes.ClienteDto::get_Nome()
+DA:6,0
+FN:6,System.String Application.Clientes.ClienteDto::get_Email()
+FNDA:0,System.String Application.Clientes.ClienteDto::get_Email()
+DA:7,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Product\ProductCreateDto.cs
+FN:3,System.String Application.DTOs.Product.ProductCreateDto::get_Name()
+FNDA:0,System.String Application.DTOs.Product.ProductCreateDto::get_Name()
+DA:4,0
+FN:4,System.String Application.DTOs.Product.ProductCreateDto::get_Description()
+FNDA:0,System.String Application.DTOs.Product.ProductCreateDto::get_Description()
+DA:5,0
+FN:5,System.Decimal Application.DTOs.Product.ProductCreateDto::get_Price()
+FNDA:0,System.Decimal Application.DTOs.Product.ProductCreateDto::get_Price()
+DA:6,0
+FN:6,System.Int32 Application.DTOs.Product.ProductCreateDto::get_Stock()
+FNDA:0,System.Int32 Application.DTOs.Product.ProductCreateDto::get_Stock()
+DA:7,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Product\ProductReadDto.cs
+FN:4,System.Int32 Application.DTOs.Product.ProductReadDto::get_Id()
+FNDA:0,System.Int32 Application.DTOs.Product.ProductReadDto::get_Id()
+DA:5,0
+FN:5,System.String Application.DTOs.Product.ProductReadDto::get_Name()
+FNDA:0,System.String Application.DTOs.Product.ProductReadDto::get_Name()
+DA:6,0
+FN:6,System.String Application.DTOs.Product.ProductReadDto::get_Description()
+FNDA:0,System.String Application.DTOs.Product.ProductReadDto::get_Description()
+DA:7,0
+FN:7,System.Decimal Application.DTOs.Product.ProductReadDto::get_Price()
+FNDA:0,System.Decimal Application.DTOs.Product.ProductReadDto::get_Price()
+DA:8,0
+FN:8,System.Int32 Application.DTOs.Product.ProductReadDto::get_Stock()
+FNDA:0,System.Int32 Application.DTOs.Product.ProductReadDto::get_Stock()
+DA:9,0
+FN:9,System.Boolean Application.DTOs.Product.ProductReadDto::get_Active()
+FNDA:0,System.Boolean Application.DTOs.Product.ProductReadDto::get_Active()
+DA:10,0
+LF:6
+LH:0
+BRF:0
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Product\ProductUpdateDto.cs
+FN:4,System.String Application.DTOs.Product.ProductUpdateDto::get_Name()
+FNDA:0,System.String Application.DTOs.Product.ProductUpdateDto::get_Name()
+DA:5,0
+FN:5,System.String Application.DTOs.Product.ProductUpdateDto::get_Description()
+FNDA:0,System.String Application.DTOs.Product.ProductUpdateDto::get_Description()
+DA:6,0
+FN:6,System.Decimal Application.DTOs.Product.ProductUpdateDto::get_Price()
+FNDA:0,System.Decimal Application.DTOs.Product.ProductUpdateDto::get_Price()
+DA:7,0
+FN:7,System.Int32 Application.DTOs.Product.ProductUpdateDto::get_Stock()
+FNDA:0,System.Int32 Application.DTOs.Product.ProductUpdateDto::get_Stock()
+DA:8,0
+FN:8,System.Boolean Application.DTOs.Product.ProductUpdateDto::get_Active()
+FNDA:0,System.Boolean Application.DTOs.Product.ProductUpdateDto::get_Active()
+DA:9,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Orders\OrderCreateDto.cs
+FN:4,System.Guid Application.DTOs.Orders.OrderCreateDto::get_ProductId()
+FNDA:0,System.Guid Application.DTOs.Orders.OrderCreateDto::get_ProductId()
+DA:5,0
+FN:5,System.Int32 Application.DTOs.Orders.OrderCreateDto::get_Quantity()
+FNDA:0,System.Int32 Application.DTOs.Orders.OrderCreateDto::get_Quantity()
+DA:6,0
+FN:6,System.String Application.DTOs.Orders.OrderCreateDto::get_Cep()
+FNDA:0,System.String Application.DTOs.Orders.OrderCreateDto::get_Cep()
+DA:7,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Auth\AuthResponseDto.cs
+FN:4,System.String Application.DTOs.Auth.AuthResponseDto::get_AccessToken()
+FNDA:0,System.String Application.DTOs.Auth.AuthResponseDto::get_AccessToken()
+DA:5,0
+FN:5,System.DateTime Application.DTOs.Auth.AuthResponseDto::get_ExpiresAt()
+FNDA:0,System.DateTime Application.DTOs.Auth.AuthResponseDto::get_ExpiresAt()
+DA:6,0
+FN:6,System.String Application.DTOs.Auth.AuthResponseDto::get_UserName()
+FNDA:0,System.String Application.DTOs.Auth.AuthResponseDto::get_UserName()
+DA:7,0
+FN:7,System.String Application.DTOs.Auth.AuthResponseDto::get_Role()
+FNDA:0,System.String Application.DTOs.Auth.AuthResponseDto::get_Role()
+DA:8,0
+FN:8,System.Nullable`1<System.Guid> Application.DTOs.Auth.AuthResponseDto::get_CustomerId()
+FNDA:0,System.Nullable`1<System.Guid> Application.DTOs.Auth.AuthResponseDto::get_CustomerId()
+DA:9,0
+FN:9,System.String Application.DTOs.Auth.AuthResponseDto::get_Email()
+FNDA:0,System.String Application.DTOs.Auth.AuthResponseDto::get_Email()
+DA:10,0
+FN:10,System.String Application.DTOs.Auth.AuthResponseDto::get_Name()
+FNDA:0,System.String Application.DTOs.Auth.AuthResponseDto::get_Name()
+DA:11,0
+LF:7
+LH:0
+BRF:0
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Auth\LoginDto.cs
+FN:4,System.String Application.DTOs.Auth.LoginDto::get_UserNameOrEmail()
+FNDA:0,System.String Application.DTOs.Auth.LoginDto::get_UserNameOrEmail()
+DA:5,0
+FN:5,System.String Application.DTOs.Auth.LoginDto::get_Password()
+FNDA:0,System.String Application.DTOs.Auth.LoginDto::get_Password()
+DA:6,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Application\DTOs\Auth\RegisterDto.cs
+FN:4,System.String Application.DTOs.Auth.RegisterDto::get_Email()
+FNDA:0,System.String Application.DTOs.Auth.RegisterDto::get_Email()
+DA:5,0
+FN:5,System.String Application.DTOs.Auth.RegisterDto::get_UserName()
+FNDA:0,System.String Application.DTOs.Auth.RegisterDto::get_UserName()
+DA:6,0
+FN:6,System.String Application.DTOs.Auth.RegisterDto::get_Password()
+FNDA:0,System.String Application.DTOs.Auth.RegisterDto::get_Password()
+DA:7,0
+FN:9,System.String Application.DTOs.Auth.RegisterDto::get_Name()
+FNDA:0,System.String Application.DTOs.Auth.RegisterDto::get_Name()
+DA:10,0
+FN:10,System.String Application.DTOs.Auth.RegisterDto::get_Type()
+FNDA:0,System.String Application.DTOs.Auth.RegisterDto::get_Type()
+DA:11,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Common\DomainException.cs
+FN:4,System.Void Common.DomainException::.ctor(System.String)
+FNDA:0,System.Void Common.DomainException::.ctor(System.String)
+DA:5,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Common\Security\PasswordHasher.cs
+FN:12,System.String Common.Security.PasswordHasher::Hash(System.String)
+FNDA:0,System.String Common.Security.PasswordHasher::Hash(System.String)
+DA:13,0
+DA:14,0
+DA:16,0
+DA:17,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:23,0
+DA:24,0
+BRDA:14,7,0,0
+BRDA:14,7,1,0
+BRDA:20,98,1,0
+BRDA:20,98,0,0
+LF:9
+LH:0
+BRF:4
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Domain\Entities\Customer.cs
+FN:8,System.Guid Domain.Entities.Customer::get_Id()
+FNDA:0,System.Guid Domain.Entities.Customer::get_Id()
+DA:9,0
+FN:10,System.String Domain.Entities.Customer::get_Nome()
+FNDA:0,System.String Domain.Entities.Customer::get_Nome()
+DA:11,0
+FN:11,System.String Domain.Entities.Customer::get_Email()
+FNDA:0,System.String Domain.Entities.Customer::get_Email()
+DA:12,0
+FN:13,System.Collections.Generic.ICollection`1<Domain.Entities.Order> Domain.Entities.Customer::get_Orders()
+FNDA:0,System.Collections.Generic.ICollection`1<Domain.Entities.Order> Domain.Entities.Customer::get_Orders()
+DA:14,0
+FN:26,Domain.Entities.Customer Domain.Entities.Customer::Create(System.String,System.String)
+FNDA:0,Domain.Entities.Customer Domain.Entities.Customer::Create(System.String,System.String)
+DA:27,0
+FN:15,System.Void Domain.Entities.Customer::.ctor()
+FNDA:0,System.Void Domain.Entities.Customer::.ctor()
+DA:16,0
+FN:17,System.Void Domain.Entities.Customer::.ctor(System.String,System.String)
+FNDA:0,System.Void Domain.Entities.Customer::.ctor(System.String,System.String)
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:23,0
+DA:24,0
+DA:25,0
+BRDA:20,52,0,0
+BRDA:20,52,1,0
+BRDA:21,73,0,0
+BRDA:21,73,1,0
+LF:13
+LH:0
+BRF:4
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Domain\Entities\Order.cs
+FN:7,System.Guid Domain.Entities.Order::get_Id()
+FNDA:0,System.Guid Domain.Entities.Order::get_Id()
+DA:8,0
+FN:8,System.Guid Domain.Entities.Order::get_CustomerId()
+FNDA:0,System.Guid Domain.Entities.Order::get_CustomerId()
+DA:9,0
+FN:9,System.Guid Domain.Entities.Order::get_ProductId()
+FNDA:0,System.Guid Domain.Entities.Order::get_ProductId()
+DA:10,0
+FN:10,System.Int32 Domain.Entities.Order::get_Quantidade()
+FNDA:0,System.Int32 Domain.Entities.Order::get_Quantidade()
+DA:11,0
+FN:11,System.Decimal Domain.Entities.Order::get_Preco()
+FNDA:0,System.Decimal Domain.Entities.Order::get_Preco()
+DA:12,0
+FN:12,System.String Domain.Entities.Order::get_EnderecoEntrega()
+FNDA:0,System.String Domain.Entities.Order::get_EnderecoEntrega()
+DA:13,0
+FN:13,System.DateTime Domain.Entities.Order::get_DataPedido()
+FNDA:0,System.DateTime Domain.Entities.Order::get_DataPedido()
+DA:14,0
+FN:14,System.String Domain.Entities.Order::get_Status()
+FNDA:0,System.String Domain.Entities.Order::get_Status()
+DA:15,0
+FN:19,Domain.Entities.Order Domain.Entities.Order::Create(System.Guid,System.Guid,System.Int32,System.Decimal,System.String)
+FNDA:0,Domain.Entities.Order Domain.Entities.Order::Create(System.Guid,System.Guid,System.Int32,System.Decimal,System.String)
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+BRDA:21,10,0,0
+BRDA:21,10,1,0
+BRDA:23,36,0,0
+BRDA:23,36,1,0
+BRDA:25,58,0,0
+BRDA:25,58,1,0
+FN:16,System.Void Domain.Entities.Order::.ctor()
+FNDA:0,System.Void Domain.Entities.Order::.ctor()
+DA:17,0
+LF:28
+LH:0
+BRF:6
+BRH:0
+FNF:10
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Domain\Entities\OrderItem.cs
+FN:4,System.Guid Domain.Entities.OrderItem::get_Id()
+FNDA:0,System.Guid Domain.Entities.OrderItem::get_Id()
+DA:5,0
+FN:5,System.Guid Domain.Entities.OrderItem::get_OrderId()
+FNDA:0,System.Guid Domain.Entities.OrderItem::get_OrderId()
+DA:6,0
+FN:6,Domain.Entities.Order Domain.Entities.OrderItem::get_Order()
+FNDA:0,Domain.Entities.Order Domain.Entities.OrderItem::get_Order()
+DA:7,0
+FN:8,System.Guid Domain.Entities.OrderItem::get_ProductId()
+FNDA:0,System.Guid Domain.Entities.OrderItem::get_ProductId()
+DA:9,0
+FN:9,Domain.Entities.Product Domain.Entities.OrderItem::get_Product()
+FNDA:0,Domain.Entities.Product Domain.Entities.OrderItem::get_Product()
+DA:10,0
+FN:11,System.Int32 Domain.Entities.OrderItem::get_Quantity()
+FNDA:0,System.Int32 Domain.Entities.OrderItem::get_Quantity()
+DA:12,0
+FN:12,System.Decimal Domain.Entities.OrderItem::get_UnitPrice()
+FNDA:0,System.Decimal Domain.Entities.OrderItem::get_UnitPrice()
+DA:13,0
+LF:7
+LH:0
+BRF:0
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Domain\Entities\Product.cs
+FN:7,System.Guid Domain.Entities.Product::get_Id()
+FNDA:0,System.Guid Domain.Entities.Product::get_Id()
+DA:8,0
+FN:9,System.String Domain.Entities.Product::get_Nome()
+FNDA:0,System.String Domain.Entities.Product::get_Nome()
+DA:10,0
+FN:10,System.Decimal Domain.Entities.Product::get_Preco()
+FNDA:0,System.Decimal Domain.Entities.Product::get_Preco()
+DA:11,0
+FN:11,System.Int32 Domain.Entities.Product::get_QuantityAvailable()
+FNDA:0,System.Int32 Domain.Entities.Product::get_QuantityAvailable()
+DA:12,0
+FN:32,Domain.Entities.Product Domain.Entities.Product::Create(System.String,System.Decimal,System.Int32)
+FNDA:0,Domain.Entities.Product Domain.Entities.Product::Create(System.String,System.Decimal,System.Int32)
+DA:33,0
+FN:35,System.Void Domain.Entities.Product::UpdatePrice(System.Decimal)
+FNDA:0,System.Void Domain.Entities.Product::UpdatePrice(System.Decimal)
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+BRDA:37,14,0,0
+BRDA:37,14,1,0
+FN:42,System.Void Domain.Entities.Product::IncreaseInventory(System.Int32)
+FNDA:0,System.Void Domain.Entities.Product::IncreaseInventory(System.Int32)
+DA:43,0
+DA:44,0
+DA:45,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+BRDA:44,10,0,0
+BRDA:44,10,1,0
+FN:52,System.Void Domain.Entities.Product::DebitInventory(System.Int32)
+FNDA:0,System.Void Domain.Entities.Product::DebitInventory(System.Int32)
+DA:53,0
+DA:54,0
+DA:55,0
+DA:57,0
+DA:58,0
+DA:60,0
+DA:61,0
+BRDA:54,10,0,0
+BRDA:54,10,1,0
+BRDA:57,34,0,0
+BRDA:57,34,1,0
+FN:13,System.Void Domain.Entities.Product::.ctor()
+FNDA:0,System.Void Domain.Entities.Product::.ctor()
+DA:14,0
+FN:15,System.Void Domain.Entities.Product::.ctor(System.String,System.Decimal,System.Int32)
+FNDA:0,System.Void Domain.Entities.Product::.ctor(System.String,System.Decimal,System.Int32)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:21,0
+DA:22,0
+DA:24,0
+DA:25,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+BRDA:18,34,0,0
+BRDA:18,34,1,0
+BRDA:21,60,0,0
+BRDA:21,60,1,0
+BRDA:24,79,0,0
+BRDA:24,79,1,0
+LF:37
+LH:0
+BRF:14
+BRH:0
+FNF:10
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Domain\Entities\User.cs
+FN:7,System.Guid Domain.Entities.User::get_Id()
+FNDA:0,System.Guid Domain.Entities.User::get_Id()
+DA:8,0
+FN:9,System.String Domain.Entities.User::get_Email()
+FNDA:0,System.String Domain.Entities.User::get_Email()
+DA:10,0
+FN:10,System.String Domain.Entities.User::get_UserName()
+FNDA:0,System.String Domain.Entities.User::get_UserName()
+DA:11,0
+FN:11,System.String Domain.Entities.User::get_PasswordHash()
+FNDA:0,System.String Domain.Entities.User::get_PasswordHash()
+DA:12,0
+FN:12,System.String Domain.Entities.User::get_Type()
+FNDA:0,System.String Domain.Entities.User::get_Type()
+DA:13,0
+FN:13,System.Nullable`1<System.Guid> Domain.Entities.User::get_CustomerId()
+FNDA:0,System.Nullable`1<System.Guid> Domain.Entities.User::get_CustomerId()
+DA:14,0
+FN:32,Domain.Entities.User Domain.Entities.User::Create(System.String,System.String,System.String,System.String,System.Nullable`1<System.Guid>)
+FNDA:0,Domain.Entities.User Domain.Entities.User::Create(System.String,System.String,System.String,System.String,System.Nullable`1<System.Guid>)
+DA:33,0
+FN:35,System.Void Domain.Entities.User::SetPasswordHash(System.String)
+FNDA:0,System.Void Domain.Entities.User::SetPasswordHash(System.String)
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+BRDA:37,9,0,0
+BRDA:37,9,1,0
+FN:41,System.Void Domain.Entities.User::SetType(System.String)
+FNDA:0,System.Void Domain.Entities.User::SetType(System.String)
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+BRDA:43,9,0,0
+BRDA:43,9,1,0
+FN:15,System.Void Domain.Entities.User::.ctor()
+FNDA:0,System.Void Domain.Entities.User::.ctor()
+DA:16,0
+FN:17,System.Void Domain.Entities.User::.ctor(System.String,System.String,System.String,System.String,System.Nullable`1<System.Guid>)
+FNDA:0,System.Void Domain.Entities.User::.ctor(System.String,System.String,System.String,System.String,System.Nullable`1<System.Guid>)
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+BRDA:20,55,0,0
+BRDA:20,55,1,0
+BRDA:21,76,0,0
+BRDA:21,76,1,0
+BRDA:22,97,0,0
+BRDA:22,97,1,0
+BRDA:23,119,0,0
+BRDA:23,119,1,0
+LF:28
+LH:0
+BRF:12
+BRH:0
+FNF:11
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\DependencyInjection.cs
+FN:17,Microsoft.Extensions.DependencyInjection.IServiceCollection Infrastructure.DependencyInjection::AddInfrastructure(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+FNDA:0,Microsoft.Extensions.DependencyInjection.IServiceCollection Infrastructure.DependencyInjection::AddInfrastructure(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+DA:18,0
+DA:20,0
+DA:21,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:32,0
+DA:33,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:42,0
+DA:43,0
+LF:18
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Services\ViaCepService.cs
+FN:15,System.Void Infrastructure.Services.ViaCepService::.ctor(System.Net.Http.HttpClient)
+FNDA:0,System.Void Infrastructure.Services.ViaCepService::.ctor(System.Net.Http.HttpClient)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+FN:21,System.Void Infrastructure.Services.ViaCepService/<BuscarEnderecoAsync>d__2::MoveNext()
+FNDA:0,System.Void Infrastructure.Services.ViaCepService/<BuscarEnderecoAsync>d__2::MoveNext()
+DA:22,0
+DA:23,0
+DA:24,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:36,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:51,0
+DA:52,0
+BRDA:23,42,0,0
+BRDA:23,42,1,0
+BRDA:27,64,0,0
+BRDA:27,64,1,0
+BRDA:28,124,0,0
+BRDA:28,124,1,0
+BRDA:33,312,0,0
+BRDA:33,312,1,0
+BRDA:41,520,0,0
+BRDA:41,520,1,0
+BRDA:41,543,0,0
+BRDA:41,543,1,0
+LF:25
+LH:0
+BRF:12
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Seed\DbSeeder.cs
+FN:46,System.String Infrastructure.Seed.DbSeeder::SHA256(System.String)
+FNDA:0,System.String Infrastructure.Seed.DbSeeder::SHA256(System.String)
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+BRDA:51,80,1,0
+BRDA:51,80,0,0
+FN:10,System.Void Infrastructure.Seed.DbSeeder/<SeedAdminAsync>d__0::MoveNext()
+FNDA:0,System.Void Infrastructure.Seed.DbSeeder/<SeedAdminAsync>d__0::MoveNext()
+DA:11,0
+DA:13,0
+DA:14,0
+DA:16,0
+DA:18,0
+DA:20,0
+DA:21,0
+DA:24,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:34,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:44,0
+BRDA:14,208,0,0
+BRDA:14,208,1,0
+LF:30
+LH:0
+BRF:4
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Repositories\CustomerRepository.cs
+FN:20,System.Threading.Tasks.Task`1<Domain.Entities.Customer> Infrastructure.Repositories.CustomerRepository::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<Domain.Entities.Customer> Infrastructure.Repositories.CustomerRepository::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+DA:21,0
+FN:23,System.Threading.Tasks.Task`1<Domain.Entities.Customer> Infrastructure.Repositories.CustomerRepository::GetByEmailAsync(System.String,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<Domain.Entities.Customer> Infrastructure.Repositories.CustomerRepository::GetByEmailAsync(System.String,System.Threading.CancellationToken)
+DA:24,0
+FN:14,System.Void Infrastructure.Repositories.CustomerRepository::.ctor(Infrastructure.Data.AppDbContext)
+FNDA:0,System.Void Infrastructure.Repositories.CustomerRepository::.ctor(Infrastructure.Data.AppDbContext)
+DA:15,0
+FN:17,System.Void Infrastructure.Repositories.CustomerRepository/<AddAsync>d__2::MoveNext()
+FNDA:0,System.Void Infrastructure.Repositories.CustomerRepository/<AddAsync>d__2::MoveNext()
+DA:18,0
+FN:26,System.Void Infrastructure.Repositories.CustomerRepository/<GetAllAsync>d__5::MoveNext()
+FNDA:0,System.Void Infrastructure.Repositories.CustomerRepository/<GetAllAsync>d__5::MoveNext()
+DA:27,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Repositories\OrderRepository.cs
+FN:14,System.Threading.Tasks.Task Infrastructure.Repositories.OrderRepository::AddAsync(Domain.Entities.Order,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task Infrastructure.Repositories.OrderRepository::AddAsync(Domain.Entities.Order,System.Threading.CancellationToken)
+DA:15,0
+FN:11,System.Void Infrastructure.Repositories.OrderRepository::.ctor(Infrastructure.Data.AppDbContext)
+FNDA:0,System.Void Infrastructure.Repositories.OrderRepository::.ctor(Infrastructure.Data.AppDbContext)
+DA:12,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Repositories\ProductRepository.cs
+FN:16,System.Threading.Tasks.Task`1<Domain.Entities.Product> Infrastructure.Repositories.ProductRepository::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<Domain.Entities.Product> Infrastructure.Repositories.ProductRepository::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+DA:17,0
+FN:22,System.Void Infrastructure.Repositories.ProductRepository::Update(Domain.Entities.Product)
+FNDA:0,System.Void Infrastructure.Repositories.ProductRepository::Update(Domain.Entities.Product)
+DA:23,0
+FN:13,System.Void Infrastructure.Repositories.ProductRepository::.ctor(Infrastructure.Data.AppDbContext)
+FNDA:0,System.Void Infrastructure.Repositories.ProductRepository::.ctor(Infrastructure.Data.AppDbContext)
+DA:14,0
+FN:19,System.Void Infrastructure.Repositories.ProductRepository/<AddAsync>d__3::MoveNext()
+FNDA:0,System.Void Infrastructure.Repositories.ProductRepository/<AddAsync>d__3::MoveNext()
+DA:20,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Repositories\UserRepository.cs
+FN:20,System.Threading.Tasks.Task`1<Domain.Entities.User> Infrastructure.Repositories.UserRepository::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<Domain.Entities.User> Infrastructure.Repositories.UserRepository::GetByIdAsync(System.Guid,System.Threading.CancellationToken)
+DA:21,0
+FN:23,System.Threading.Tasks.Task`1<Domain.Entities.User> Infrastructure.Repositories.UserRepository::GetByEmailAsync(System.String,System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task`1<Domain.Entities.User> Infrastructure.Repositories.UserRepository::GetByEmailAsync(System.String,System.Threading.CancellationToken)
+DA:24,0
+FN:14,System.Void Infrastructure.Repositories.UserRepository::.ctor(Infrastructure.Data.AppDbContext)
+FNDA:0,System.Void Infrastructure.Repositories.UserRepository::.ctor(Infrastructure.Data.AppDbContext)
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+FN:26,System.Void Infrastructure.Repositories.UserRepository/<AddAsync>d__4::MoveNext()
+FNDA:0,System.Void Infrastructure.Repositories.UserRepository/<AddAsync>d__4::MoveNext()
+DA:27,0
+LF:7
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Migrations\20250904201405_FreshStart.cs
+FN:12,System.Void Infrastructure.Migrations.FreshStart::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void Infrastructure.Migrations.FreshStart::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:87,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+FN:99,System.Void Infrastructure.Migrations.FreshStart::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void Infrastructure.Migrations.FreshStart::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+DA:100,0
+DA:101,0
+DA:102,0
+DA:104,0
+DA:105,0
+DA:107,0
+DA:108,0
+DA:110,0
+DA:111,0
+DA:112,0
+LF:89
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Migrations\20250904201405_FreshStart.Designer.cs
+FN:19,System.Void Infrastructure.Migrations.FreshStart::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void Infrastructure.Migrations.FreshStart::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:20,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:127,0
+DA:128,0
+DA:129,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,0
+DA:142,0
+DA:143,0
+DA:144,0
+DA:145,0
+DA:146,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,0
+DA:152,0
+DA:153,0
+DA:154,0
+DA:155,0
+DA:156,0
+DA:157,0
+DA:158,0
+DA:159,0
+DA:161,0
+DA:162,0
+DA:163,0
+DA:164,0
+DA:166,0
+LF:138
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Migrations\20250905183650_AddUserCustomerId.cs
+FN:12,System.Void Infrastructure.Migrations.AddUserCustomerId::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void Infrastructure.Migrations.AddUserCustomerId::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:127,0
+DA:128,0
+DA:129,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+FN:141,System.Void Infrastructure.Migrations.AddUserCustomerId::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void Infrastructure.Migrations.AddUserCustomerId::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+DA:142,0
+DA:143,0
+DA:144,0
+DA:145,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:151,0
+DA:152,0
+DA:153,0
+DA:155,0
+DA:156,0
+DA:157,0
+DA:159,0
+DA:160,0
+DA:161,0
+DA:163,0
+DA:164,0
+DA:165,0
+DA:167,0
+DA:168,0
+DA:169,0
+DA:171,0
+DA:172,0
+DA:173,0
+DA:175,0
+DA:176,0
+DA:177,0
+DA:179,0
+DA:180,0
+DA:181,0
+DA:183,0
+DA:184,0
+DA:185,0
+DA:187,0
+DA:188,0
+DA:189,0
+DA:190,0
+DA:192,0
+DA:193,0
+DA:194,0
+DA:195,0
+DA:197,0
+DA:198,0
+DA:199,0
+DA:200,0
+DA:201,0
+DA:202,0
+DA:203,0
+DA:204,0
+DA:206,0
+DA:207,0
+DA:208,0
+DA:209,0
+DA:210,0
+DA:211,0
+DA:213,0
+DA:214,0
+DA:215,0
+DA:216,0
+DA:217,0
+DA:218,0
+DA:219,0
+DA:220,0
+DA:222,0
+DA:223,0
+DA:224,0
+DA:225,0
+DA:226,0
+DA:227,0
+DA:228,0
+DA:229,0
+DA:230,0
+DA:232,0
+DA:233,0
+DA:234,0
+DA:235,0
+DA:236,0
+DA:237,0
+DA:238,0
+DA:240,0
+DA:241,0
+DA:242,0
+DA:243,0
+DA:244,0
+DA:245,0
+DA:246,0
+DA:248,0
+DA:249,0
+DA:250,0
+DA:251,0
+DA:252,0
+DA:253,0
+DA:254,0
+DA:255,0
+LF:202
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Migrations\20250905183650_AddUserCustomerId.Designer.cs
+FN:19,System.Void Infrastructure.Migrations.AddUserCustomerId::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void Infrastructure.Migrations.AddUserCustomerId::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:20,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:127,0
+DA:128,0
+DA:129,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,0
+DA:141,0
+DA:142,0
+DA:143,0
+DA:144,0
+DA:145,0
+DA:146,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,0
+DA:152,0
+DA:153,0
+DA:154,0
+DA:155,0
+DA:156,0
+DA:157,0
+DA:158,0
+DA:159,0
+DA:161,0
+DA:162,0
+DA:163,0
+DA:164,0
+DA:165,0
+DA:166,0
+DA:167,0
+DA:168,0
+DA:169,0
+DA:170,0
+DA:171,0
+DA:172,0
+DA:173,0
+DA:174,0
+DA:175,0
+DA:176,0
+DA:177,0
+DA:178,0
+DA:179,0
+DA:180,0
+DA:182,0
+DA:183,0
+DA:184,0
+DA:185,0
+DA:187,0
+LF:159
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Migrations\AppDbContextModelSnapshot.cs
+FN:16,System.Void Infrastructure.Migrations.AppDbContextModelSnapshot::BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void Infrastructure.Migrations.AppDbContextModelSnapshot::BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:17,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:23,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:127,0
+DA:128,0
+DA:129,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,0
+DA:141,0
+DA:142,0
+DA:143,0
+DA:144,0
+DA:145,0
+DA:146,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,0
+DA:152,0
+DA:153,0
+DA:154,0
+DA:155,0
+DA:156,0
+DA:158,0
+DA:159,0
+DA:160,0
+DA:161,0
+DA:162,0
+DA:163,0
+DA:164,0
+DA:165,0
+DA:166,0
+DA:167,0
+DA:168,0
+DA:169,0
+DA:170,0
+DA:171,0
+DA:172,0
+DA:173,0
+DA:174,0
+DA:175,0
+DA:176,0
+DA:177,0
+DA:179,0
+DA:180,0
+DA:181,0
+DA:182,0
+DA:184,0
+LF:159
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Identity\AuthService.cs
+FN:96,System.String Infrastructure.Identity.AuthService::IssueJwt(Domain.Entities.User,Domain.Entities.Customer)
+FNDA:0,System.String Infrastructure.Identity.AuthService::IssueJwt(Domain.Entities.User,Domain.Entities.Customer)
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:109,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:125,0
+DA:126,0
+BRDA:98,18,0,0
+BRDA:98,18,1,0
+BRDA:111,177,0,0
+BRDA:111,177,1,0
+FN:128,System.String Infrastructure.Identity.AuthService::Sha256(System.String)
+FNDA:0,System.String Infrastructure.Identity.AuthService::Sha256(System.String)
+DA:129,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+BRDA:133,80,1,0
+BRDA:133,80,0,0
+FN:24,System.Void Infrastructure.Identity.AuthService::.ctor(Infrastructure.Data.AppDbContext,Microsoft.Extensions.Configuration.IConfiguration,Domain.Repositories.IUserRepository,Domain.Repositories.ICustomerRepository,Domain.Repositories.IUnitOfWork)
+FNDA:0,System.Void Infrastructure.Identity.AuthService::.ctor(Infrastructure.Data.AppDbContext,Microsoft.Extensions.Configuration.IConfiguration,Domain.Repositories.IUserRepository,Domain.Repositories.ICustomerRepository,Domain.Repositories.IUnitOfWork)
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+FN:74,System.Void Infrastructure.Identity.AuthService/<LoginAsync>d__7::MoveNext()
+FNDA:0,System.Void Infrastructure.Identity.AuthService/<LoginAsync>d__7::MoveNext()
+DA:75,0
+DA:76,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:84,0
+DA:85,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+DA:93,0
+DA:94,0
+BRDA:84,481,0,0
+BRDA:84,481,1,0
+BRDA:89,530,0,0
+BRDA:89,530,1,0
+FN:39,System.Void Infrastructure.Identity.AuthService/<SignUpAsync>d__6::MoveNext()
+FNDA:0,System.Void Infrastructure.Identity.AuthService/<SignUpAsync>d__6::MoveNext()
+DA:40,0
+DA:42,0
+DA:44,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:51,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:60,0
+DA:62,0
+DA:63,0
+DA:65,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:72,0
+LF:83
+LH:0
+BRF:10
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Data\AppDbContext.cs
+FN:9,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.User> Infrastructure.Data.AppDbContext::get_Users()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.User> Infrastructure.Data.AppDbContext::get_Users()
+DA:10,0
+FN:10,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.Customer> Infrastructure.Data.AppDbContext::get_Customers()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.Customer> Infrastructure.Data.AppDbContext::get_Customers()
+DA:11,0
+FN:11,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.Product> Infrastructure.Data.AppDbContext::get_Products()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.Product> Infrastructure.Data.AppDbContext::get_Products()
+DA:12,0
+FN:12,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.Order> Infrastructure.Data.AppDbContext::get_Orders()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<Domain.Entities.Order> Infrastructure.Data.AppDbContext::get_Orders()
+DA:13,0
+FN:15,System.Void Infrastructure.Data.AppDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void Infrastructure.Data.AppDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:16,0
+DA:17,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+FN:7,System.Void Infrastructure.Data.AppDbContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Infrastructure.Data.AppDbContext>)
+FNDA:0,System.Void Infrastructure.Data.AppDbContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Infrastructure.Data.AppDbContext>)
+DA:8,0
+LF:67
+LH:0
+BRF:0
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Data\AppDbContextFactory.cs
+FN:12,Infrastructure.Data.AppDbContext Infrastructure.Data.AppDbContextFactory::CreateDbContext(System.String[])
+FNDA:0,Infrastructure.Data.AppDbContext Infrastructure.Data.AppDbContextFactory::CreateDbContext(System.String[])
+DA:13,0
+DA:15,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:23,0
+DA:25,0
+DA:26,0
+DA:28,0
+DA:29,0
+DA:31,0
+DA:32,0
+BRDA:15,12,0,0
+BRDA:15,12,1,0
+BRDA:25,96,0,0
+BRDA:25,96,1,0
+LF:14
+LH:0
+BRF:4
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\Users\OBERDAN\Desktop\DESAFIO1\src\Infrastructure\Data\UnitOfWork.cs
+FN:18,System.Threading.Tasks.Task Infrastructure.Data.UnitOfWork::SaveChangesAsync(System.Threading.CancellationToken)
+FNDA:0,System.Threading.Tasks.Task Infrastructure.Data.UnitOfWork::SaveChangesAsync(System.Threading.CancellationToken)
+DA:19,0
+FN:12,System.Void Infrastructure.Data.UnitOfWork::.ctor(Infrastructure.Data.AppDbContext)
+FNDA:0,System.Void Infrastructure.Data.UnitOfWork::.ctor(Infrastructure.Data.AppDbContext)
+DA:13,0
+FN:15,System.Void Infrastructure.Data.UnitOfWork/<BeginTransactionAsync>d__3::MoveNext()
+FNDA:0,System.Void Infrastructure.Data.UnitOfWork/<BeginTransactionAsync>d__3::MoveNext()
+DA:16,0
+FN:21,System.Void Infrastructure.Data.UnitOfWork/<CommitAsync>d__5::MoveNext()
+FNDA:0,System.Void Infrastructure.Data.UnitOfWork/<CommitAsync>d__5::MoveNext()
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+BRDA:23,45,0,0
+BRDA:23,45,1,0
+FN:31,System.Void Infrastructure.Data.UnitOfWork/<RollbackAsync>d__6::MoveNext()
+FNDA:0,System.Void Infrastructure.Data.UnitOfWork/<RollbackAsync>d__6::MoveNext()
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+BRDA:33,45,0,0
+BRDA:33,45,1,0
+LF:19
+LH:0
+BRF:4
+BRH:0
+FNF:5
+FNH:0
+end_of_record

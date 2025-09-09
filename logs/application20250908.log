@@ -522,3 +522,4 @@ WHERE "Id" = @p12;
 2025-09-08 21:07:42.203 +00:00 [INF] Executed endpoint 'API.Controllers.OrdersController.Create (Api)'
 2025-09-08 21:07:42.204 +00:00 [INF] HTTP POST /api/Orders responded 201 in 78.9945 ms
 2025-09-08 21:07:42.204 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/Orders - 201 null application/json; charset=utf-8 80.0522ms
+2025-09-08 21:40:26.707 +00:00 [INF] Application is shutting down...
