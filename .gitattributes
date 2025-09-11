@@ -1,0 +1,9 @@
+# Trate relatórios e artefatos como "vendored" (não contam na linguagem)
+coveragereport/** linguist-vendored
+tests/UnitTests/TestResults/** linguist-vendored
+src/**/bin/** linguist-vendored
+src/**/obj/** linguist-vendored
+logs/** linguist-vendored
+
+# (Opcional) Se você tiver assets estáticos do Swagger em wwwroot, marque-os também
+src/Api/wwwroot/** linguist-vendored

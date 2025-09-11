@@ -1,0 +1,26 @@
+# Build / IDE
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Logs
+logs/
+*.log
+
+# Testes e cobertura
+tests/UnitTests/TestResults/
+coveragereport/
+coverage*.xml
+*.coverage
+*.coveragexml
+
+# Ferramentas/relatórios auxiliares
+*.opendb
+*.cache
+*.DS_Store
+Thumbs.db
+
+# Docker (se gerar artefatos locais)
+**/docker-compose.override.yml
