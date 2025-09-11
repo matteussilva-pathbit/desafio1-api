@@ -82,4 +82,20 @@ public class ProductServiceTests
 
         product.QuantityAvailable.Should().Be(6);
     }
+
+
+     [Fact]
+    public async Task AdjustInventory_Deve_lancar_erro_quando_produto_nao_encontrado()
+     {
+          _repo.Setup(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+         .ReturnsAsync((Product?)null);
+
+          var act = () => _svc.AdjustInventoryAsync(Guid.NewGuid(), 1, CancellationToken.None);
+
+           await act.Should().ThrowAsync<DomainException>().WithMessage("*Produto*");
+}
+
+
+
+
 }

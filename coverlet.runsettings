@@ -1,17 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
   <DataCollectionRunSettings>
     <DataCollectors>
       <DataCollector friendlyName="XPlat Code Coverage">
         <Configuration>
-          <!-- INCLUIR os assemblies do seu código (não o de testes) -->
-          <Include>
-            [Common]*,[Domain]*,[Application]*,[Infrastructure]*
-          </Include>
-          <!-- Excluir arquivos gerados/boilerplate (ajuste se não tiver) -->
-          <ExcludeByFile>**/Migrations/*;**/obj/*;**/bin/*</ExcludeByFile>
-          <Format>cobertura,lcov,opencover</Format>
-          <SingleHit>false</SingleHit>
+          <Format>cobertura</Format>
+
+          <!-- Arquivos que não valem a pena medir agora -->
+          <ExcludeByFile>
+            **/Program.cs
+            **/Migrations/*.cs
+            **/Seed/*.cs
+            **/Profiles/*.cs
+            **/Api/**/*
+            **/Infrastructure/Identity/*.cs
+            **/Application/DTOs/**/*.cs
+            **/Application/Models/**/*.cs
+            **/Domain/Entities/User.cs
+            **/Domain/Entities/OrderItem.cs
+            **/Common/Class1.cs
+            **/Application/Class1.cs
+            **/Domain/Class1.cs
+          </ExcludeByFile>
+
+          <!-- Assemblies inteiros, se quiser foco total em Domain/Application -->
+          <Exclude>
+            [Api]*
+            [Infrastructure]*
+          </Exclude>
         </Configuration>
       </DataCollector>
     </DataCollectors>
