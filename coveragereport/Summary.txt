@@ -1,0 +1,47 @@
+Summary
+  Generated on: 10/09/2025 - 18:10:12
+  Coverage date: 10/09/2025 - 18:03:18 - 10/09/2025 - 18:07:14
+  Parser: MultiReport (2x Cobertura)
+  Assemblies: 3
+  Classes: 21
+  Files: 20
+  Line coverage: 56.8%
+  Covered lines: 153
+  Uncovered lines: 116
+  Coverable lines: 269
+  Total lines: 548
+  Branch coverage: 52.9% (36 of 68)
+  Covered branches: 36
+  Total branches: 68
+  Method coverage: 38% (40 of 105)
+  Full method coverage: 32.3% (34 of 105)
+  Covered methods: 40
+  Fully covered methods: 34
+  Total methods: 105
+
+Application                                   52.7%
+  Application.Clientes.ClienteDto                0%
+  Application.DTOs.Auth.AuthResponseDto          0%
+  Application.DTOs.Auth.LoginDto                 0%
+  Application.DTOs.Auth.RegisterDto              0%
+  Application.DTOs.Orders.OrderCreateDto         0%
+  Application.DTOs.Product.ProductCreateDto      0%
+  Application.DTOs.Product.ProductReadDto        0%
+  Application.DTOs.Product.ProductUpdateDto      0%
+  Application.Models.CreateOrderRequest          0%
+  Application.Models.ViaCepResponse           66.6%
+  Application.Services.CreateOrderRequest      100%
+  Application.Services.CustomerService           0%
+  Application.Services.OrderService             92%
+  Application.Services.ProductService         95.8%
+
+Common                                         100%
+  Common.DomainException                       100%
+  Common.Security.PasswordHasher               100%
+
+Domain                                        58.4%
+  Domain.Entities.Customer                    92.3%
+  Domain.Entities.Order                       89.2%
+  Domain.Entities.OrderItem                      0%
+  Domain.Entities.Product                     78.3%
+  Domain.Entities.User                           0%

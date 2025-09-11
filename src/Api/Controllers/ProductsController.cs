@@ -1,11 +1,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Services; // IProductService
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+// injeta a implementação concreta do serviço de produtos (métodos com Guid)
+using ProductServiceImpl = Application.Services.ProductService;
 
 namespace API.Controllers
 {
@@ -13,11 +15,11 @@ namespace API.Controllers
     [Route("api/products")]
     public sealed class ProductsController : ControllerBase
     {
-        private readonly IProductService _products;
+        private readonly ProductServiceImpl _products;
         private readonly IProductRepository _repo;
         private readonly IUnitOfWork _uow;
 
-        public ProductsController(IProductService products, IProductRepository repo, IUnitOfWork uow)
+        public ProductsController(ProductServiceImpl products, IProductRepository repo, IUnitOfWork uow)
         {
             _products = products;
             _repo = repo;
@@ -61,7 +63,7 @@ namespace API.Controllers
 
             var product = Product.Create(req.Nome.Trim(), req.Preco, req.QuantityAvailable);
             await _repo.AddAsync(product, ct);
-            await _uow.SaveChangesAsync(ct); // ✅ garante persistência
+            await _uow.SaveChangesAsync(ct);
 
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, new { id = product.Id });
         }

@@ -1,0 +1,242 @@
+2025-09-11 12:40:48.567 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-09-11 12:40:48.639 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-09-11 12:40:48.785 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:8080'.
+2025-09-11 12:40:48.910 +00:00 [INF] Now listening on: http://0.0.0.0:8080
+2025-09-11 12:40:48.910 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-11 12:40:48.910 +00:00 [INF] Hosting environment: Development
+2025-09-11 12:40:48.911 +00:00 [INF] Content root path: /app
+2025-09-11 12:41:05.477 +00:00 [INF] Application is shutting down...
+2025-09-11 12:41:06.962 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-09-11 12:41:06.989 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-09-11 12:41:07.000 +00:00 [INF] Creating key {3eaf7bcb-0691-440d-82e8-3875fcd59415} with creation date 2025-09-11 12:41:06Z, activation date 2025-09-11 12:41:06Z, and expiration date 2025-12-10 12:41:06Z.
+2025-09-11 12:41:07.009 +00:00 [WRN] No XML encryptor configured. Key {3eaf7bcb-0691-440d-82e8-3875fcd59415} may be persisted to storage in unencrypted form.
+2025-09-11 12:41:07.012 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-3eaf7bcb-0691-440d-82e8-3875fcd59415.xml'.
+2025-09-11 12:41:07.021 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:8080'.
+2025-09-11 12:41:07.066 +00:00 [INF] Now listening on: http://0.0.0.0:8080
+2025-09-11 12:41:07.066 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-11 12:41:07.066 +00:00 [INF] Hosting environment: Development
+2025-09-11 12:41:07.067 +00:00 [INF] Content root path: /app
+2025-09-11 12:41:29.860 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5297/swagger/v1/swagger.json - null null
+2025-09-11 12:41:29.978 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5297/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 118.8796ms
+2025-09-11 12:41:38.015 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/dev/seed-admin - null 0
+2025-09-11 12:41:38.021 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-09-11 12:41:38.034 +00:00 [INF] Executing endpoint 'API.Controllers.AdminSeedController.Seed (Api)'
+2025-09-11 12:41:38.049 +00:00 [INF] Route matched with {action = "Seed", controller = "AdminSeed"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Seed(System.Threading.CancellationToken) on controller API.Controllers.AdminSeedController (Api).
+2025-09-11 12:41:38.415 +00:00 [WRN] The foreign key property 'Order.CustomerId1' was created in shadow state because a conflicting property with the simple name 'CustomerId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-09-11 12:41:38.827 +00:00 [INF] Executed DbCommand (32ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 1
+2025-09-11 12:41:38.875 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`4[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-11 12:41:38.885 +00:00 [INF] Executed action API.Controllers.AdminSeedController.Seed (Api) in 834.3134ms
+2025-09-11 12:41:38.886 +00:00 [INF] Executed endpoint 'API.Controllers.AdminSeedController.Seed (Api)'
+2025-09-11 12:41:38.888 +00:00 [INF] HTTP POST /dev/seed-admin responded 200 in 866.8427 ms
+2025-09-11 12:41:38.894 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/dev/seed-admin - 200 null application/json; charset=utf-8 879.5914ms
+2025-09-11 12:41:58.692 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 55
+2025-09-11 12:41:58.694 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-11 12:41:58.697 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-11 12:41:58.748 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-11 12:41:58.757 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_CustomerId_Value_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__user_CustomerId_Value_0
+LIMIT 1
+2025-09-11 12:41:58.768 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-11 12:41:58.769 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 71.7413ms
+2025-09-11 12:41:58.770 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-11 12:41:58.770 +00:00 [INF] HTTP POST /api/auth/login responded 200 in 77.6437 ms
+2025-09-11 12:41:58.770 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 200 null application/json; charset=utf-8 78.9518ms
+2025-09-11 12:42:37.998 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 69
+2025-09-11 12:42:38.008 +00:00 [INF] Failed to validate the token.
+System.ArgumentException: IDX14102: Unable to decode the header '[PII of type 'Microsoft.IdentityModel.Logging.SecurityArtifact' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' as Base64Url encoded string.
+ ---> System.FormatException: IDX10400: Unable to decode: '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' as Base64url encoded string.
+   at Microsoft.IdentityModel.Tokens.Base64UrlEncoding.ValidateAndGetOutputSize(ReadOnlySpan`1 strSpan, Int32 offset, Int32 length)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.CreateClaimSet(ReadOnlySpan`1 strSpan, Int32 startIndex, Int32 length, Boolean createHeaderClaimSet)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(ReadOnlyMemory`1 encodedTokenMemory)
+   --- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(ReadOnlyMemory`1 encodedTokenMemory)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken..ctor(String jwtEncodedString, TryReadJwtClaim tryReadJwtClaim)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ReadToken(String token, TokenValidationParameters validationParameters)
+2025-09-11 12:42:38.014 +00:00 [INF] Bearer was not authenticated. Failure message: IDX14102: Unable to decode the header '[PII of type 'Microsoft.IdentityModel.Logging.SecurityArtifact' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' as Base64Url encoded string.
+2025-09-11 12:42:38.017 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (ADMIN)
+2025-09-11 12:42:38.020 +00:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-09-11 12:42:38.020 +00:00 [INF] HTTP POST /api/products responded 401 in 21.3117 ms
+2025-09-11 12:42:38.021 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 401 0 null 22.8206ms
+2025-09-11 12:42:56.562 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 69
+2025-09-11 12:42:56.563 +00:00 [INF] Failed to validate the token.
+System.ArgumentException: IDX14102: Unable to decode the header '[PII of type 'Microsoft.IdentityModel.Logging.SecurityArtifact' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' as Base64Url encoded string.
+ ---> System.FormatException: IDX10400: Unable to decode: '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' as Base64url encoded string.
+   at Microsoft.IdentityModel.Tokens.Base64UrlEncoding.ValidateAndGetOutputSize(ReadOnlySpan`1 strSpan, Int32 offset, Int32 length)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.CreateClaimSet(ReadOnlySpan`1 strSpan, Int32 startIndex, Int32 length, Boolean createHeaderClaimSet)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(ReadOnlyMemory`1 encodedTokenMemory)
+   --- End of inner exception stack trace ---
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(ReadOnlyMemory`1 encodedTokenMemory)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken..ctor(String jwtEncodedString, TryReadJwtClaim tryReadJwtClaim)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ReadToken(String token, TokenValidationParameters validationParameters)
+2025-09-11 12:42:56.563 +00:00 [INF] Bearer was not authenticated. Failure message: IDX14102: Unable to decode the header '[PII of type 'Microsoft.IdentityModel.Logging.SecurityArtifact' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' as Base64Url encoded string.
+2025-09-11 12:42:56.564 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (ADMIN)
+2025-09-11 12:42:56.565 +00:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-09-11 12:42:56.565 +00:00 [INF] HTTP POST /api/products responded 401 in 2.3312 ms
+2025-09-11 12:42:56.565 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 401 0 null 3.0908ms
+2025-09-11 12:43:30.362 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 69
+2025-09-11 12:43:30.383 +00:00 [INF] Executing endpoint 'API.Controllers.ProductsController.Create (Api)'
+2025-09-11 12:43:30.385 +00:00 [INF] Route matched with {action = "Create", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(CreateProductRequest, System.Threading.CancellationToken) on controller API.Controllers.ProductsController (Api).
+2025-09-11 12:43:30.471 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Products" ("Id", "Nome", "Preco", "QuantityAvailable")
+VALUES (@p0, @p1, @p2, @p3);
+2025-09-11 12:43:30.477 +00:00 [INF] Executing CreatedAtActionResult, writing value of type '<>f__AnonymousType3`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-11 12:43:30.489 +00:00 [INF] Executed action API.Controllers.ProductsController.Create (Api) in 103.2685ms
+2025-09-11 12:43:30.489 +00:00 [INF] Executed endpoint 'API.Controllers.ProductsController.Create (Api)'
+2025-09-11 12:43:30.489 +00:00 [INF] HTTP POST /api/products responded 201 in 126.8400 ms
+2025-09-11 12:43:30.490 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 201 null application/json; charset=utf-8 127.8203ms
+2025-09-11 12:44:29.618 +00:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5297/api/products/c5efd068-0666-482a-8377-637da5f5d78c/price - application/json 21
+2025-09-11 12:44:29.619 +00:00 [INF] Executing endpoint 'API.Controllers.ProductsController.UpdatePrice (Api)'
+2025-09-11 12:44:29.622 +00:00 [INF] Route matched with {action = "UpdatePrice", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdatePrice(System.Guid, UpdatePriceRequest, System.Threading.CancellationToken) on controller API.Controllers.ProductsController (Api).
+2025-09-11 12:44:29.632 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT p."Id", p."Nome", p."Preco", p."QuantityAvailable"
+FROM "Products" AS p
+WHERE p."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:44:29.644 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?', @p1='?' (DbType = Decimal), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Products" SET "Nome" = @p0, "Preco" = @p1, "QuantityAvailable" = @p2
+WHERE "Id" = @p3;
+2025-09-11 12:44:29.646 +00:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2025-09-11 12:44:29.647 +00:00 [INF] Executed action API.Controllers.ProductsController.UpdatePrice (Api) in 24.2957ms
+2025-09-11 12:44:29.647 +00:00 [INF] Executed endpoint 'API.Controllers.ProductsController.UpdatePrice (Api)'
+2025-09-11 12:44:29.647 +00:00 [INF] HTTP PUT /api/products/c5efd068-0666-482a-8377-637da5f5d78c/price responded 204 in 28.6218 ms
+2025-09-11 12:44:29.647 +00:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5297/api/products/c5efd068-0666-482a-8377-637da5f5d78c/price - 204 null null 29.7618ms
+2025-09-11 12:44:44.202 +00:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5297/api/products/c5efd068-0666-482a-8377-637da5f5d78c/inventory - application/json 17
+2025-09-11 12:44:44.203 +00:00 [INF] Executing endpoint 'API.Controllers.ProductsController.AdjustInventory (Api)'
+2025-09-11 12:44:44.207 +00:00 [INF] Route matched with {action = "AdjustInventory", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AdjustInventory(System.Guid, AdjustInventoryRequest, System.Threading.CancellationToken) on controller API.Controllers.ProductsController (Api).
+2025-09-11 12:44:44.218 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT p."Id", p."Nome", p."Preco", p."QuantityAvailable"
+FROM "Products" AS p
+WHERE p."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:44:44.223 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?', @p1='?' (DbType = Decimal), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Products" SET "Nome" = @p0, "Preco" = @p1, "QuantityAvailable" = @p2
+WHERE "Id" = @p3;
+2025-09-11 12:44:44.224 +00:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2025-09-11 12:44:44.225 +00:00 [INF] Executed action API.Controllers.ProductsController.AdjustInventory (Api) in 16.4659ms
+2025-09-11 12:44:44.225 +00:00 [INF] Executed endpoint 'API.Controllers.ProductsController.AdjustInventory (Api)'
+2025-09-11 12:44:44.225 +00:00 [INF] HTTP PUT /api/products/c5efd068-0666-482a-8377-637da5f5d78c/inventory responded 204 in 22.5543 ms
+2025-09-11 12:44:44.225 +00:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5297/api/products/c5efd068-0666-482a-8377-637da5f5d78c/inventory - 204 null null 23.6376ms
+2025-09-11 12:45:08.581 +00:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5297/api/Users/f38b8f54-0972-4dc9-96de-473926a2e340 - null null
+2025-09-11 12:45:08.582 +00:00 [INF] Executing endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:08.586 +00:00 [INF] Route matched with {action = "Delete", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid, System.Threading.CancellationToken) on controller API.Controllers.UsersController (Api).
+2025-09-11 12:45:08.595 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:45:08.596 +00:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-09-11 12:45:08.608 +00:00 [INF] Executed action API.Controllers.UsersController.Delete (Api) in 21.22ms
+2025-09-11 12:45:08.608 +00:00 [INF] Executed endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:08.608 +00:00 [INF] HTTP DELETE /api/Users/f38b8f54-0972-4dc9-96de-473926a2e340 responded 404 in 27.1140 ms
+2025-09-11 12:45:08.609 +00:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5297/api/Users/f38b8f54-0972-4dc9-96de-473926a2e340 - 404 null application/problem+json; charset=utf-8 27.8944ms
+2025-09-11 12:45:31.392 +00:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5297/api/Users/d27deca2-f051-4122-b471-de5b2f343df8 - null null
+2025-09-11 12:45:31.393 +00:00 [INF] Executing endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:31.393 +00:00 [INF] Route matched with {action = "Delete", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid, System.Threading.CancellationToken) on controller API.Controllers.UsersController (Api).
+2025-09-11 12:45:31.396 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:45:31.397 +00:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-09-11 12:45:31.397 +00:00 [INF] Executed action API.Controllers.UsersController.Delete (Api) in 3.6317ms
+2025-09-11 12:45:31.397 +00:00 [INF] Executed endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:31.398 +00:00 [INF] HTTP DELETE /api/Users/d27deca2-f051-4122-b471-de5b2f343df8 responded 404 in 5.4205 ms
+2025-09-11 12:45:31.398 +00:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5297/api/Users/d27deca2-f051-4122-b471-de5b2f343df8 - 404 null application/problem+json; charset=utf-8 6.267ms
+2025-09-11 12:45:39.090 +00:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5297/api/Users/c5efd068-0666-482a-8377-637da5f5d78c - null null
+2025-09-11 12:45:39.090 +00:00 [INF] Executing endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:39.091 +00:00 [INF] Route matched with {action = "Delete", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid, System.Threading.CancellationToken) on controller API.Controllers.UsersController (Api).
+2025-09-11 12:45:39.093 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:45:39.093 +00:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-09-11 12:45:39.094 +00:00 [INF] Executed action API.Controllers.UsersController.Delete (Api) in 3.1867ms
+2025-09-11 12:45:39.094 +00:00 [INF] Executed endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:39.095 +00:00 [INF] HTTP DELETE /api/Users/c5efd068-0666-482a-8377-637da5f5d78c responded 404 in 4.5406 ms
+2025-09-11 12:45:39.095 +00:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5297/api/Users/c5efd068-0666-482a-8377-637da5f5d78c - 404 null application/problem+json; charset=utf-8 5.3997ms
+2025-09-11 12:45:40.134 +00:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5297/api/Users/c5efd068-0666-482a-8377-637da5f5d78c - null null
+2025-09-11 12:45:40.135 +00:00 [INF] Executing endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:40.136 +00:00 [INF] Route matched with {action = "Delete", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid, System.Threading.CancellationToken) on controller API.Controllers.UsersController (Api).
+2025-09-11 12:45:40.137 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:45:40.138 +00:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-09-11 12:45:40.138 +00:00 [INF] Executed action API.Controllers.UsersController.Delete (Api) in 2.5834ms
+2025-09-11 12:45:40.139 +00:00 [INF] Executed endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:40.139 +00:00 [INF] HTTP DELETE /api/Users/c5efd068-0666-482a-8377-637da5f5d78c responded 404 in 3.8438 ms
+2025-09-11 12:45:40.139 +00:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5297/api/Users/c5efd068-0666-482a-8377-637da5f5d78c - 404 null application/problem+json; charset=utf-8 4.6894ms
+2025-09-11 12:45:41.103 +00:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5297/api/Users/c5efd068-0666-482a-8377-637da5f5d78c - null null
+2025-09-11 12:45:41.104 +00:00 [INF] Executing endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:41.104 +00:00 [INF] Route matched with {action = "Delete", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid, System.Threading.CancellationToken) on controller API.Controllers.UsersController (Api).
+2025-09-11 12:45:41.107 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE u."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:45:41.111 +00:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-09-11 12:45:41.112 +00:00 [INF] Executed action API.Controllers.UsersController.Delete (Api) in 6.8395ms
+2025-09-11 12:45:41.112 +00:00 [INF] Executed endpoint 'API.Controllers.UsersController.Delete (Api)'
+2025-09-11 12:45:41.112 +00:00 [INF] HTTP DELETE /api/Users/c5efd068-0666-482a-8377-637da5f5d78c responded 404 in 8.5884 ms
+2025-09-11 12:45:41.113 +00:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5297/api/Users/c5efd068-0666-482a-8377-637da5f5d78c - 404 null application/problem+json; charset=utf-8 9.531ms
+2025-09-11 12:46:43.465 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 62
+2025-09-11 12:46:43.466 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-11 12:46:43.466 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-11 12:46:43.470 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-11 12:46:43.472 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__user_CustomerId_Value_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__user_CustomerId_Value_0
+LIMIT 1
+2025-09-11 12:46:43.473 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-11 12:46:43.473 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 7.1091ms
+2025-09-11 12:46:43.474 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-11 12:46:43.474 +00:00 [INF] HTTP POST /api/auth/login responded 200 in 8.2435 ms
+2025-09-11 12:46:43.474 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 200 null application/json; charset=utf-8 9.3495ms
+2025-09-11 12:47:57.831 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/Orders - application/json 128
+2025-09-11 12:47:57.832 +00:00 [INF] Executing endpoint 'Api.Controllers.OrdersController.Create (Api)'
+2025-09-11 12:47:57.835 +00:00 [INF] Route matched with {action = "Create", controller = "Orders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Api.Controllers.CreateOrderRequestDto, System.Threading.CancellationToken) on controller Api.Controllers.OrdersController (Api).
+2025-09-11 12:47:57.852 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:47:57.854 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT p."Id", p."Nome", p."Preco", p."QuantityAvailable"
+FROM "Products" AS p
+WHERE p."Id" = @__id_0
+LIMIT 1
+2025-09-11 12:47:58.418 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Guid), @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Decimal), @p6='?' (DbType = Guid), @p7='?' (DbType = Int32), @p8='?', @p12='?' (DbType = Guid), @p9='?', @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Orders" ("Id", "CustomerId", "CustomerId1", "DataPedido", "EnderecoEntrega", "Preco", "ProductId", "Quantidade", "Status")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+UPDATE "Products" SET "Nome" = @p9, "Preco" = @p10, "QuantityAvailable" = @p11
+WHERE "Id" = @p12;
+2025-09-11 12:47:58.428 +00:00 [INF] Executing CreatedResult, writing value of type '<>f__AnonymousType3`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-11 12:47:58.429 +00:00 [INF] Executed action Api.Controllers.OrdersController.Create (Api) in 593.3728ms
+2025-09-11 12:47:58.429 +00:00 [INF] Executed endpoint 'Api.Controllers.OrdersController.Create (Api)'
+2025-09-11 12:47:58.429 +00:00 [INF] HTTP POST /api/Orders responded 201 in 597.2571 ms
+2025-09-11 12:47:58.429 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/Orders - 201 null application/json; charset=utf-8 597.9448ms
+2025-09-11 12:48:25.139 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/products - application/json 70
+2025-09-11 12:48:25.141 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (ADMIN)
+2025-09-11 12:48:25.142 +00:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2025-09-11 12:48:25.142 +00:00 [INF] HTTP POST /api/products responded 403 in 1.9281 ms
+2025-09-11 12:48:25.142 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/products - 403 0 null 2.634ms

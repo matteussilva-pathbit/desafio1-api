@@ -1,0 +1,40 @@
+2025-09-10 19:31:02.162 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-09-10 19:31:02.355 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-09-10 19:31:02.529 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:8080'.
+2025-09-10 19:31:02.747 +00:00 [INF] Now listening on: http://0.0.0.0:8080
+2025-09-10 19:31:02.751 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-10 19:31:02.751 +00:00 [INF] Hosting environment: Development
+2025-09-10 19:31:02.752 +00:00 [INF] Content root path: /app
+2025-09-10 19:31:24.682 +00:00 [INF] Application is shutting down...
+2025-09-10 19:31:26.384 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-09-10 19:31:26.424 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-09-10 19:31:26.441 +00:00 [INF] Creating key {cce9f030-aa88-4206-86c9-26704e93825c} with creation date 2025-09-10 19:31:26Z, activation date 2025-09-10 19:31:26Z, and expiration date 2025-12-09 19:31:26Z.
+2025-09-10 19:31:26.456 +00:00 [WRN] No XML encryptor configured. Key {cce9f030-aa88-4206-86c9-26704e93825c} may be persisted to storage in unencrypted form.
+2025-09-10 19:31:26.460 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-cce9f030-aa88-4206-86c9-26704e93825c.xml'.
+2025-09-10 19:31:26.471 +00:00 [WRN] Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://0.0.0.0:8080'.
+2025-09-10 19:31:26.526 +00:00 [INF] Now listening on: http://0.0.0.0:8080
+2025-09-10 19:31:26.526 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-10 19:31:26.527 +00:00 [INF] Hosting environment: Development
+2025-09-10 19:31:26.527 +00:00 [INF] Content root path: /app
+2025-09-10 19:31:35.858 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5297/swagger/v1/swagger.json - null null
+2025-09-10 19:31:36.011 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5297/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 158.727ms
+2025-09-10 19:32:00.363 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5297/api/auth/login - application/json 62
+2025-09-10 19:32:00.372 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-09-10 19:32:00.394 +00:00 [INF] Executing endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-10 19:32:00.410 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LoginRequest, System.Threading.CancellationToken) on controller API.Controllers.AuthController (Api).
+2025-09-10 19:32:00.823 +00:00 [WRN] The foreign key property 'Order.CustomerId1' was created in shadow state because a conflicting property with the simple name 'CustomerId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2025-09-10 19:32:01.270 +00:00 [INF] Executed DbCommand (36ms) [Parameters=[@__usernameOrEmail_0='?', @__usernameOrEmail_0_1='?', @__hash_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CustomerId", u."Email", u."PasswordHash", u."Type", u."UserName"
+FROM "Users" AS u
+WHERE (u."Email" = @__usernameOrEmail_0 OR u."UserName" = @__usernameOrEmail_0_1) AND u."PasswordHash" = @__hash_1
+LIMIT 1
+2025-09-10 19:32:01.298 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_CustomerId_Value_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Email", c."Nome"
+FROM "Customers" AS c
+WHERE c."Id" = @__user_CustomerId_Value_0
+LIMIT 1
+2025-09-10 19:32:01.315 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-10 19:32:01.322 +00:00 [INF] Executed action API.Controllers.AuthController.Login (Api) in 910.2445ms
+2025-09-10 19:32:01.323 +00:00 [INF] Executed endpoint 'API.Controllers.AuthController.Login (Api)'
+2025-09-10 19:32:01.325 +00:00 [INF] HTTP POST /api/auth/login responded 200 in 954.5540 ms
+2025-09-10 19:32:01.333 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5297/api/auth/login - 200 null application/json; charset=utf-8 970.3669ms

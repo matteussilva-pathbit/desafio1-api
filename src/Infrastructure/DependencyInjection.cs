@@ -1,43 +1,40 @@
-using System;
-using System.Net.Http;
-using Application.Interface;
-using Application.Services;
+using Microsoft.Extensions.DependencyInjection;
+
+// aliases para evitar ambiguidade
+using IOrderServiceApp    = Application.Interface.IOrderService; // interface OFICIAL de pedidos
+using OrderServiceImpl    = Application.Services.OrderService;
+using ProductServiceImpl  = Application.Services.ProductService; // serviço CONCRETO de produtos
+using CustomerServiceImpl = Application.Services.CustomerService;
+
 using Domain.Repositories;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
-            // DbContext
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(config.GetConnectionString("Default")));
-
-            // Repositórios
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            // Repositórios + UoW
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ICustomerService, CustomerService>();
 
             // Services de aplicação
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderServiceApp, OrderServiceImpl>(); // interface -> implementação
+            services.AddScoped<ProductServiceImpl>();                 // registra o CONCRETO (sem interface)
+            services.AddScoped<CustomerServiceImpl>();                // se houver uso do concreto
 
-            // ViaCEP – registramos sem AddHttpClient para evitar pacote extra
-            services.AddSingleton<IViaCepService>(sp =>
-            {
-                var http = new HttpClient { BaseAddress = new Uri("https://viacep.com.br/") };
-                return new ViaCepService(http);
-            });
+            // ViaCEP (se quiser registrar aqui também)
+            // services.AddSingleton<IViaCepService>(sp =>
+            // {
+            //     var http = new HttpClient { BaseAddress = new Uri("https://viacep.com.br/") };
+            //     return new ViaCepService(http);
+            // });
 
             return services;
         }

@@ -1,18 +1,14 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interface;   // IViaCepService
+using Application.Interface;   // IViaCepService, IOrderService (oficial)
 using Common;                 // DomainException
 using Domain.Entities;
 using Domain.Repositories;
 
 namespace Application.Services
 {
-    public interface IOrderService
-    {
-        Task<Guid> CreateOrderAsync(CreateOrderRequest request, Guid customerId, CancellationToken ct);
-    }
-
+    // Mantemos a DTO aqui (ou mova para Application.Models, se preferir)
     public sealed class CreateOrderRequest
     {
         public Guid ProductId { get; set; }
@@ -21,6 +17,7 @@ namespace Application.Services
         public string? AddressOverride { get; set; }
     }
 
+    // IMPORTANTE: implementar a interface oficial de Application.Interface
     public sealed class OrderService : IOrderService
     {
         private readonly IOrderRepository _orders;
@@ -43,6 +40,9 @@ namespace Application.Services
             _viaCep = viaCep;
         }
 
+        /// <summary>
+        /// Método já usado no projeto/testes: cria pedido a partir de uma request rica.
+        /// </summary>
         public async Task<Guid> CreateOrderAsync(CreateOrderRequest request, Guid customerId, CancellationToken ct)
         {
             if (request.Quantity <= 0)
@@ -74,7 +74,7 @@ namespace Application.Services
                 product.DebitInventory(request.Quantity);
                 _products.Update(product);
 
-                // Cria pedido (atenção aos nomes dos parâmetros da entidade Order)
+                // Cria pedido (ajuste nomes conforme sua entidade Order)
                 var order = Order.Create(
                     customerId: customer.Id,
                     productId: product.Id,
@@ -94,6 +94,21 @@ namespace Application.Services
                 await _uow.RollbackAsync(ct);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Implementação da interface oficial (Application.Interface.IOrderService).
+        /// É um "adaptador" que mantém compatibilidade com CreateOrderAsync.
+        /// </summary>
+        public Task<Guid> CreateAsync(Guid customerId, Guid productId, int quantity, string cep, CancellationToken ct = default)
+        {
+            var req = new CreateOrderRequest
+            {
+                ProductId = productId,
+                Quantity = quantity,
+                Cep = cep
+            };
+            return CreateOrderAsync(req, customerId, ct);
         }
     }
 }

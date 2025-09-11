@@ -1,19 +1,10 @@
-﻿using Xunit;
-
-namespace UnitTests;
+﻿namespace UnitTests;
 
 public class UnitTest1
 {
     [Fact]
-    public void Sanity_check()
+    public void Test1()
     {
-        Assert.True(true);
-    }
 
-    [Fact]
-    public void Another_simple_check()
-    {
-        var sum = 2 + 2;
-        Assert.Equal(4, sum);
     }
 }

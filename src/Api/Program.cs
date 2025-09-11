@@ -1,6 +1,6 @@
 using System.Text;
 using System.Text.Encodings.Web;
-using Application.Interface;
+using Application.Interface;     // IOrderService (singular) - interface oficial do Order
 using Application.Services;
 using API.Auth; // BasicAuthenticationHandler
 using Domain.Repositories;
@@ -14,6 +14,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+
+// ===== Aliases para evitar ambiguidade =====
+using IOrderServiceApp   = Application.Interface.IOrderService;      // existe e é a interface oficial de pedidos
+// NÃO registre IProductService aqui; ProductService não implementa o contrato de Application.Interfaces
+
+using OrderServiceImpl    = Application.Services.OrderService;
+using ProductServiceImpl  = Application.Services.ProductService;
+using CustomerServiceImpl = Application.Services.CustomerService;     // se precisar registrar o concreto
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,9 +57,14 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // -------------------------------------------
 // Services de aplicação
 // -------------------------------------------
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICustomerService, CustomerService>();
+// Order: interface oficial -> implementação concreta
+builder.Services.AddScoped<IOrderServiceApp, OrderServiceImpl>();
+
+// Product: registrar o CONCRETO, pois a classe não implementa Application.Interfaces.IProductService
+builder.Services.AddScoped<ProductServiceImpl>();
+
+// (Opcional) Customer: registrar o concreto, caso algum controller injete a classe
+builder.Services.AddScoped<CustomerServiceImpl>();
 
 // -------------------------------------------
 // Auth service

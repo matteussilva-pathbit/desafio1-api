@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Interfaces
+namespace Application.Interface
 {
     public interface IOrderService
     {
