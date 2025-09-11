@@ -54,7 +54,7 @@ dotnet run --project src/Api/Api.csproj
 
 Swagger:
 
-https://localhost:xxxx/swagger
+https://localhost:5433/swagger
 
 ************************************************************************************************************************************
 Docker:
